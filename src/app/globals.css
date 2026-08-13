@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #0E0E0E;
+  --color-light: #FEFEFE;
+
+  --font-uber-bold: var(--font-uber-bold);
+  --font-uber-medium: var(--font-uber-medium);
+}
+
+/* Theme CSS variables */
+:root {
+  --bg: #0E0E0E;
+  --fg: #FEFEFE;
+  --input: #1e1e1e;
+}
+
+[data-theme="light"] {
+  --bg: #FEFEFE;
+  --fg: #0E0E0E;
+  --input: #eaeaea;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  height: 100%;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
