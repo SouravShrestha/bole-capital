@@ -27,12 +27,14 @@ export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as SubscribePayload;
     const email = body.email?.trim();
+    const name = body.name?.trim();
+    const phone = body.phone?.trim();
 
     if (!email || !EMAIL_REGEX.test(email)) {
       return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
     }
 
-    await notificationService.sendSubscribeNotification({ email });
+    await notificationService.sendSubscribeNotification({ email, name, phone });
 
     return NextResponse.json({ success: true });
   } catch (err) {

@@ -1,24 +1,33 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --color-dark: #0E0E0E;
-  --color-light: #FEFEFE;
+  --color-light: #FAFAFA;
 
   --font-uber-bold: var(--font-uber-bold);
   --font-uber-medium: var(--font-uber-medium);
+  --font-poppins: var(--font-poppins);
 }
 
 /* Theme CSS variables */
 :root {
   --bg: #0E0E0E;
-  --fg: #FEFEFE;
+  --fg: #FAFAFA;
   --input: #1e1e1e;
+  --surface: #222222;
+  --card-back-bg: #1a1a1a;
+  --card-border: #2a2a2a;
 }
 
 [data-theme="light"] {
-  --bg: #FEFEFE;
+  --bg: #FAFAFA;
   --fg: #0E0E0E;
   --input: #eaeaea;
+  --surface: #FAFAFA;
+  --card-back-bg: #EFEFEF;
+  --card-border: #DFDFDF;
 }
 
 *, *::before, *::after {
@@ -30,8 +39,6 @@ body {
   background-color: var(--bg);
   color: var(--fg);
   transition: background-color 0.3s ease, color 0.3s ease;
-  height: 100%;
-  overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
