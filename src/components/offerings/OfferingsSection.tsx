@@ -18,6 +18,7 @@ export function OfferingsSection() {
       linkText: "Learn more",
       image: mutualFundsImg,
       variant: "light" as const,
+      href: "/services#mutual-funds",
     },
     {
       title: "Portfolio Review",
@@ -26,6 +27,7 @@ export function OfferingsSection() {
       linkText: "Review my portfolio",
       image: portfolioReviewImg,
       variant: "dark" as const,
+      href: "/services#portfolio-review",
     },
     {
       title: "Goal-based Investing",
@@ -34,6 +36,7 @@ export function OfferingsSection() {
       linkText: "Learn more",
       image: goalBasedInvestingImg,
       variant: "light" as const,
+      href: "/services#goal-based-investing",
     },
     {
       title: "PMS / SIF",
@@ -42,6 +45,7 @@ export function OfferingsSection() {
       linkText: "Learn more",
       image: pmsSifImg,
       variant: "dark" as const,
+      href: "/services#pms-sif",
     },
     {
       title: "Insurance",
@@ -50,6 +54,7 @@ export function OfferingsSection() {
       linkText: "Learn more",
       image: insuranceImg,
       variant: "light" as const,
+      href: "/services#insurance",
     },
     {
       title: "NPS",
@@ -58,6 +63,7 @@ export function OfferingsSection() {
       linkText: "Learn more",
       image: npsImg,
       variant: "dark" as const,
+      href: "/services#nps",
     },
   ];
 

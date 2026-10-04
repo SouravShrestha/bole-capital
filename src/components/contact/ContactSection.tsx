@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { ContactInfo } from "./ContactInfo";
 import { ContactForm } from "./ContactForm";
 
@@ -9,7 +10,9 @@ export function ContactSection() {
           <ContactInfo />
         </div>
         <div className="order-1 md:order-2">
-          <ContactForm />
+          <Suspense fallback={null}>
+            <ContactForm />
+          </Suspense>
         </div>
       </div>
     </section>

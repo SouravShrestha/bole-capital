@@ -1,0 +1,23 @@
+import type { SVGProps } from "react";
+
+type Props = SVGProps<SVGSVGElement> & {
+  color?: string;
+};
+
+export function PlusIcon({ color = "currentColor", ...props }: Props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={color}
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+    </svg>
+  );
+}

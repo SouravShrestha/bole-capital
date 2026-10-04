@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { IconButton } from "@/components/ui/IconButton";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
 
@@ -51,7 +52,11 @@ const inputClassName =
   "w-full rounded-lg px-4 py-3 text-sm outline-none border border-transparent focus:border-[#1DB954] transition-colors disabled:opacity-60";
 
 export function ContactForm() {
-  const [form, setForm] = useState<FormState>(EMPTY_FORM);
+  const searchParams = useSearchParams();
+  const [form, setForm] = useState<FormState>(() => ({
+    ...EMPTY_FORM,
+    message: searchParams.get("message") ?? "",
+  }));
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{

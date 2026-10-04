@@ -1,4 +1,5 @@
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 import { ArrowIcon } from "@/icons/ArrowIcon";
 import { TextHighlightIcon } from "@/icons/TextHighlightIcon";
 
@@ -8,6 +9,7 @@ type OfferingCardProps = {
   image: StaticImageData;
   linkText: string;
   variant: "light" | "dark";
+  href?: string;
 };
 
 export function OfferingCard({
@@ -16,6 +18,7 @@ export function OfferingCard({
   image,
   linkText,
   variant,
+  href = "#",
 }: OfferingCardProps) {
   const isLight = variant === "light";
 
@@ -28,7 +31,8 @@ export function OfferingCard({
   const arrowColor = isLight ? "#FAFAFA" : "#0E0E0E";
 
   return (
-    <div
+    <Link
+      href={href}
       className={`group rounded-2xl sm:rounded-3xl px-5 py-7 sm:px-7 sm:py-8 flex flex-col gap-6 h-full transition-all duration-200 ${containerClass} hover:cursor-pointer`}
       style={{ fontFamily: "var(--font-poppins)" }}
     >
@@ -52,16 +56,16 @@ export function OfferingCard({
         </div>
       </div>
 
-      <button className="flex items-center gap-3 self-start ml-2">
+      <div className="flex items-center gap-3 self-start ml-2">
         <span
           className={`w-6 h-6 sm:w-7 sm:h-7 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:rotate-45 ${circleBg}`}
         >
           <ArrowIcon color={arrowColor} className="w-3 h-3" />
         </span>
-        <span className="text-xs sm:text-xs font-medium hover:underline text-left">
+        <span className="text-xs sm:text-xs font-medium group-hover:underline text-left">
           {linkText}
         </span>
-      </button>
-    </div>
+      </div>
+    </Link>
   );
 }

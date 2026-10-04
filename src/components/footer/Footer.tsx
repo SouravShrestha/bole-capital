@@ -3,13 +3,12 @@ import { FooterNavColumn, type FooterLink } from "./FooterNavColumn";
 import { FooterContact } from "./FooterContact";
 
 const SERVICES: FooterLink[] = [
-  { label: "Mutual Funds", href: "/services/mutual-funds" },
-  { label: "NPS", href: "/services/nps" },
-  { label: "PMS", href: "/services/pms" },
-  { label: "SIF", href: "/services/sif" },
-  { label: "Insurance", href: "/services/insurance" },
-  { label: "Fixed Income", href: "/services/fixed-income" },
-  { label: "Portfolio Review", href: "/services/portfolio-review" },
+  { label: "Mutual Funds", href: "/services#mutual-funds" },
+  { label: "Portfolio Review", href: "/services#portfolio-review" },
+  { label: "Goal-based Investing", href: "/services#goal-based-investing" },
+  { label: "PMS / SIF", href: "/services#pms-sif" },
+  { label: "Insurance", href: "/services#insurance" },
+  { label: "NPS", href: "/services#nps" },
 ];
 
 const COMPANY: FooterLink[] = [
@@ -21,7 +20,7 @@ const COMPANY: FooterLink[] = [
 
 const RESOURCES: FooterLink[] = [
   { label: "SIP Calculator", href: "/resources/sip-calculator" },
-  { label: "FAQs", href: "/faqs" },
+  { label: "FAQs", href: "/faq" },
   { label: "Glossary", href: "/glossary" },
   { label: "Sitemap", href: "/sitemap" },
 ];

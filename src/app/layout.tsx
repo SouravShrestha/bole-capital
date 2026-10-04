@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Poppins } from "next/font/google";
+import { Poppins, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Navbar } from "@/components/navbar/Navbar";
 import { CtaGate } from "@/components/cta/CtaGate";
@@ -27,6 +27,12 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Bole Capital",
   description:
@@ -48,7 +54,7 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="dark" suppressHydrationWarning>
       <body
-        className={`${uberMoveBold.variable} ${uberMoveMedium.variable} ${poppins.variable}`}
+        className={`${uberMoveBold.variable} ${uberMoveMedium.variable} ${poppins.variable} ${inter.variable}`}
         suppressHydrationWarning
       >
         <ThemeProvider>

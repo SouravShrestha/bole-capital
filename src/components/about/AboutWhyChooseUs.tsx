@@ -7,7 +7,7 @@ import simpleOnlineInvestingImg from "@/assets/images/simple-online-investing.pn
 
 const reasons = [
   {
-    title: "Plan before products",
+    title: "Plan before investing",
     description:
       "Every portfolio starts with your goals, time horizon and risk profile, so each investment has a clear reason to be there.",
     image: planBeforeProductsImg,

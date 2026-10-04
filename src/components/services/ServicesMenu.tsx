@@ -7,6 +7,19 @@ export function ServicesMenu() {
   const [activeId, setActiveId] = useState(services[0].id);
 
   useEffect(() => {
+    // Handle initial hash for cross-page smooth scroll
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.replace("#", "");
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+          setActiveId(id);
+        }
+      }, 100);
+    }
+
     const elements = services
       .map((s) => document.getElementById(s.id))
       .filter((el): el is HTMLElement => el !== null);

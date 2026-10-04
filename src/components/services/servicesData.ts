@@ -8,6 +8,13 @@ import { NavigateIcon } from "@/icons/NavigateIcon";
 import { PiggybankIcon } from "@/icons/PiggybankIcon";
 import { ShieldIcon } from "@/icons/ShieldIcon";
 import { TargetIcon } from "@/icons/TargetIcon";
+import type { StaticImageData } from "next/image";
+import mfServicesImage from "@/assets/images/mutual-funds-services.png";
+import prServiceImage from "@/assets/images/portfolio-review-services.png";
+import gbiServiceImage from "@/assets/images/goal-based-services.png";
+import pmsSifServiceImage from "@/assets/images/pms-sif-services.png";
+import insuranceServiceImage from "@/assets/images/insurance-services.png";
+import npsServiceImage from "@/assets/images/nps-services.png";
 
 export type ServiceIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -23,6 +30,7 @@ export type ServiceItem = {
   tagline: string;
   description: string;
   points: ServicePoint[];
+  image: StaticImageData;
 };
 
 export const services: ServiceItem[] = [
@@ -47,6 +55,7 @@ export const services: ServiceItem[] = [
         text: "Reviewed regularly and rebalanced when your goals or markets change",
       },
     ],
+    image: mfServicesImage,
   },
   {
     id: "portfolio-review",
@@ -69,6 +78,7 @@ export const services: ServiceItem[] = [
         text: "A clear summary of what to keep, review or rebalance",
       },
     ],
+    image: prServiceImage,
   },
   {
     id: "goal-based-investing",
@@ -91,6 +101,7 @@ export const services: ServiceItem[] = [
         text: "Progress checked at regular reviews, with adjustments as life changes",
       },
     ],
+    image: gbiServiceImage,
   },
   {
     id: "pms-sif",
@@ -113,6 +124,7 @@ export const services: ServiceItem[] = [
         text: "Risks and exit terms covered in plain language",
       },
     ],
+    image: pmsSifServiceImage,
   },
   {
     id: "insurance",
@@ -135,6 +147,7 @@ export const services: ServiceItem[] = [
         text: "Plain-language explanation of what is and isn't covered",
       },
     ],
+    image: insuranceServiceImage,
   },
   {
     id: "nps",
@@ -157,5 +170,6 @@ export const services: ServiceItem[] = [
         text: "Tax benefits and withdrawal rules covered clearly",
       },
     ],
+    image: npsServiceImage,
   },
 ];

@@ -1,0 +1,107 @@
+[
+  {
+    "id": "about-bole-capital",
+    "name": "About Bole Capital",
+    "faqs": [
+      {
+        "id": "about-1",
+        "question": "What does Bole Capital do?",
+        "answer": "Bole Capital is a mutual fund distribution and financial services practice focused on helping investors structure, review, and manage their investments with greater clarity."
+      },
+      {
+        "id": "about-2",
+        "question": "Is my money invested with Bole Capital?",
+        "answer": "No. Bole Capital is a mutual fund distributor. Your investments are made in mutual fund schemes through the relevant regulated platforms and are held with the respective fund house/registrar infrastructure—not as an asset of Bole Capital."
+      },
+      {
+        "id": "about-3",
+        "question": "How does Bole Capital earn?",
+        "answer": "As an AMFI-registered Mutual Fund Distributor, Bole Capital receives distribution commissions from mutual fund companies for eligible products distributed through it. There is no need to pay us a separate fee for standard mutual fund distribution unless specifically agreed for another service."
+      }
+    ]
+  },
+  {
+    "id": "getting-started",
+    "name": "Getting Started",
+    "faqs": [
+      {
+        "id": "getting-started-1",
+        "question": "Do I need a large amount to start investing?",
+        "answer": "No. You can start with an amount that is appropriate for your current financial situation. SIPs can help investors build their portfolios gradually over time."
+      },
+      {
+        "id": "getting-started-2",
+        "question": "What is a SIP?",
+        "answer": "A Systematic Investment Plan (SIP) allows you to invest a fixed amount at regular intervals, usually monthly, into a mutual fund. It can help create investing discipline and build wealth over the long term."
+      },
+      {
+        "id": "getting-started-3",
+        "question": "Can I invest if I already have investments through another distributor?",
+        "answer": "Yes. You can continue your existing investments and also explore consolidating or restructuring your portfolio where appropriate. We can review what you already hold before recommending any changes."
+      },
+      {
+        "id": "getting-started-4",
+        "question": "What do I need to start investing in mutual funds?",
+        "answer": "You will typically need to complete a one-time KYC (Know Your Customer) process using your PAN, address and identity proof, and provide your bank account details. Once your KYC is in place, you can invest across mutual fund houses without repeating it each time."
+      }
+    ]
+  },
+  {
+    "id": "advice-portfolio-review",
+    "name": "Advice & Portfolio Review",
+    "faqs": [
+      {
+        "id": "advice-1",
+        "question": "How does Bole Capital help me choose mutual funds?",
+        "answer": "We look at your goals, time horizon, risk profile, existing investments, and overall portfolio before suggesting an allocation. The focus is on building a portfolio around your objectives—not simply selecting individual funds."
+      },
+      {
+        "id": "advice-2",
+        "question": "Can you review my existing mutual fund portfolio?",
+        "answer": "Yes. We can review your existing portfolio for factors such as duplication, concentration, asset allocation, risk, and whether your investments still align with your goals."
+      },
+      {
+        "id": "advice-3",
+        "question": "Do you only help with new investments?",
+        "answer": "No. Portfolio review and ongoing guidance are an important part of the relationship. As your goals, circumstances, and market conditions change, your portfolio may need to be reviewed as well."
+      },
+      {
+        "id": "advice-4",
+        "question": "What is the difference between Regular and Direct mutual fund plans?",
+        "answer": "Direct plans are bought without a distributor and carry a lower expense ratio, while Regular plans are bought through a distributor and include distribution commission in the expense ratio. The right choice depends on whether you want guidance, portfolio reviews and ongoing support, or prefer to manage everything yourself."
+      }
+    ]
+  },
+  {
+    "id": "managing-investments",
+    "name": "Managing Your Investments",
+    "faqs": [
+      {
+        "id": "managing-1",
+        "question": "Can I withdraw my money whenever I need it?",
+        "answer": "In most open-ended mutual funds, you can redeem your units on any business day, and the proceeds are generally credited within a few working days. However, some schemes have a lock-in period (such as ELSS funds), and some may charge an exit load if you redeem within a specified period. Redemptions may also have tax implications, so it is best to review these before withdrawing."
+      },
+      {
+        "id": "managing-2",
+        "question": "Can I pause, stop or change my SIP?",
+        "answer": "Yes. SIPs are flexible, and you can generally pause, stop, or modify the amount or date, subject to the rules of the fund house and the platform used. We recommend speaking with us before making changes so that the decision stays aligned with your goals."
+      },
+      {
+        "id": "managing-3",
+        "question": "How can I track my investments?",
+        "answer": "You will receive transaction confirmations and account statements from the fund houses and their registrars, and you can request a consolidated statement covering all your mutual fund holdings. We can also help you understand your statements and review how your portfolio is performing against your goals."
+      }
+    ]
+  },
+  {
+    "id": "risk-returns",
+    "name": "Risk & Returns",
+    "faqs": [
+      {
+        "id": "risk-1",
+        "question": "Are mutual fund investments risk-free?",
+        "answer": "No. Mutual funds are market-linked investments and carry investment risk. Returns are not guaranteed. The objective is to select investments and construct an allocation that is appropriate for your goals and risk profile."
+      }
+    ]
+  }
+]

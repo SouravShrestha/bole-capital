@@ -1,16 +1,23 @@
-import { PlaceholderPage } from "@/components/ui/PlaceholderPage";
+import type { Metadata } from "next";
+import faqService from "@/api/faq/faqService";
+import { ResourcesHero } from "@/components/resources/ResourcesHero";
+import { ResourcesGrid } from "@/components/resources/ResourcesGrid";
+import { PopularQuestions } from "@/components/resources/PopularQuestions";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Resources - Bole Capital",
   description:
-    "SIP calculator, FAQs, glossary, and educational content for investors.",
+    "SIP calculator and answers to common questions for mutual fund investors.",
 };
 
-export default function ResourcesPage() {
+export default async function ResourcesPage() {
+  const categories = await faqService.getCategories();
+
   return (
-    <PlaceholderPage
-      title="Resources"
-      description="SIP calculator, FAQs, glossary, and educational tools for investors."
-    />
+    <main className="bg-(--bg)">
+      <ResourcesHero />
+      <ResourcesGrid categories={categories} />
+      <PopularQuestions categories={categories} />
+    </main>
   );
 }

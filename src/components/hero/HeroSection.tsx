@@ -49,7 +49,7 @@ export function HeroSection() {
           <div>
             <IconButton
               as="link"
-              href="https://wa.me/919876543210"
+              href="https://wa.me/919971301069"
               target="_blank"
               rel="noopener noreferrer"
               icon={<ChevronRightIcon />}
