@@ -56,8 +56,8 @@ export function DonutChart({
         />
       </svg>
       <figcaption className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-xs sm:text-sm opacity-50">Returns</span>
-        <span className="text-xl sm:text-2xl font-semibold tabular-nums">
+        <span className="text-[8px] sm:text-[8px] opacity-50">Returns</span>
+        <span className="text-xs sm:text-xs font-semibold tabular-nums">
           {returnsPercent.toFixed(1)}%
         </span>
       </figcaption>

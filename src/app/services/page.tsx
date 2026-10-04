@@ -1,11 +1,13 @@
 import { ServicesHero } from "@/components/services/ServicesHero";
+import { pageMetadata } from "@/lib/seo";
 import { ServicesList } from "@/components/services/ServicesList";
 
-export const metadata = {
-  title: "Services - Bole Capital",
+export const metadata = pageMetadata({
+  title: "Services",
   description:
-    "Mutual funds, NPS, PMS, SIF, insurance, fixed income, and portfolio review.",
-};
+    "Mutual funds, portfolio review, goal-based investing, PMS and SIF, insurance and NPS from Bole Capital, an AMFI-registered mutual fund distributor.",
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (

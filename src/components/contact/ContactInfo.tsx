@@ -54,7 +54,7 @@ export function ContactInfo() {
 
       <InfoBlock label="Address">
         <address className="text-sm opacity-90 not-italic leading-6">
-          Bank More, Dhanbad,
+          Dhanbad,
           <br />
           Jharkhand, India
           <br />

@@ -1,15 +1,35 @@
 import FaqMain from "@/components/faq/FaqMain";
 import faqService from "@/api/faq/faqService";
-import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { absoluteUrl, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "FAQ - Bole Capital",
+export const metadata = pageMetadata({
+  title: "FAQ",
   description:
-    "Find answers to frequently asked questions about Bole Capital services, investment approach, and getting started.",
-};
+    "Answers to frequently asked questions about Bole Capital's services, investment approach, getting started, managing investments and risk.",
+  path: "/faq",
+});
 
 export default async function FaqPage() {
   const categories = await faqService.getCategories();
 
-  return <FaqMain categories={categories} />;
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url: absoluteUrl("/faq"),
+    mainEntity: categories.flatMap((c) =>
+      c.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.question,
+        acceptedAnswer: { "@type": "Answer", text: f.answer },
+      }))
+    ),
+  };
+
+  return (
+    <>
+      <JsonLd data={faqJsonLd} />
+      <FaqMain categories={categories} />
+    </>
+  );
 }

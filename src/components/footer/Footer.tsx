@@ -1,29 +1,11 @@
 import { FooterBrand } from "./FooterBrand";
-import { FooterNavColumn, type FooterLink } from "./FooterNavColumn";
+import { FooterNavColumn } from "./FooterNavColumn";
 import { FooterContact } from "./FooterContact";
-
-const SERVICES: FooterLink[] = [
-  { label: "Mutual Funds", href: "/services#mutual-funds" },
-  { label: "Portfolio Review", href: "/services#portfolio-review" },
-  { label: "Goal-based Investing", href: "/services#goal-based-investing" },
-  { label: "PMS / SIF", href: "/services#pms-sif" },
-  { label: "Insurance", href: "/services#insurance" },
-  { label: "NPS", href: "/services#nps" },
-];
-
-const COMPANY: FooterLink[] = [
-  { label: "About", href: "/about" },
-  { label: "Why Bole Capital", href: "/why-bole-capital" },
-  { label: "How you invest", href: "/how-you-invest" },
-  { label: "Contact", href: "/contact" },
-];
-
-const RESOURCES: FooterLink[] = [
-  { label: "SIP Calculator", href: "/resources/sip-calculator" },
-  { label: "FAQs", href: "/faq" },
-  { label: "Glossary", href: "/glossary" },
-  { label: "Sitemap", href: "/sitemap" },
-];
+import {
+  COMPANY_LINKS as COMPANY,
+  RESOURCE_LINKS as RESOURCES,
+  SERVICE_LINKS as SERVICES,
+} from "@/lib/siteLinks";
 
 export function Footer() {
   return (

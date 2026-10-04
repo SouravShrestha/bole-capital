@@ -27,7 +27,7 @@ export function PopularQuestions({ categories }: { categories: FaqCategory[] }) 
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
       aria-labelledby="popular-questions-heading"
     >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 md:px-12 py-20 sm:py-28 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
+      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 md:px-12 py-20 sm:py-28 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16 mt-4 md:mt-12">
         <div>
           <h2
             id="popular-questions-heading"
@@ -40,7 +40,7 @@ export function PopularQuestions({ categories }: { categories: FaqCategory[] }) 
           </p>
           <Link
             href="/faq"
-            className="inline-block mt-6 text-sm font-medium underline underline-offset-4 hover:opacity-80"
+            className="block w-fit ml-auto lg:ml-0 mt-6 text-sm font-medium underline underline-offset-4 hover:opacity-80"
           >
             See all FAQs
           </Link>

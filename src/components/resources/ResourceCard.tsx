@@ -28,7 +28,7 @@ export function ResourceCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col h-full rounded-2xl sm:rounded-3xl border p-6 sm:p-8 transition-all duration-200 shadow-[0_2px_0_0_var(--fg)] hover:translate-y-0.75 hover:shadow-[0_6px_0_0_var(--fg)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#22a352]"
+      className="group flex flex-col h-full rounded-2xl sm:rounded-3xl border p-5 sm:p-6 transition-all duration-200 shadow-[0_2px_0_0_var(--fg)] hover:translate-y-0.75 hover:shadow-[0_6px_0_0_var(--fg)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#22a352]"
       style={{
         backgroundColor: "var(--card-back-bg)",
         borderColor: "var(--fg)",
@@ -36,36 +36,33 @@ export function ResourceCard({
         fontFamily: "var(--font-poppins)",
       }}
     >
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-center gap-4">
         <span
-          className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-          style={{ backgroundColor: "var(--input)" }}
+          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
         >
           {icon}
         </span>
-        <span className="text-[11px] tracking-wider opacity-50 pt-1">
-          {eyebrow}
-        </span>
-      </div>
-
-      <h2 className="mt-6 text-2xl sm:text-3xl font-medium">{title}</h2>
-      <p className="mt-3 text-sm leading-relaxed opacity-70 max-w-md">
-        {description}
-      </p>
-
-      <div className="mt-8 flex-1">{children}</div>
-
-      <div className="mt-8 flex items-center gap-3">
+        <div className="min-w-0 flex-1">
+          <span className="block text-[11px] tracking-wider opacity-50">
+            {eyebrow}
+          </span>
+          <h2 className="text-xl sm:text-2xl font-medium leading-tight">
+            {title}
+          </h2>
+        </div>
         <span
-          className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:rotate-45"
+          className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:rotate-45"
           style={{ backgroundColor: "var(--fg)" }}
+          aria-hidden="true"
         >
           <ArrowIcon color="var(--bg)" className="w-3 h-3" />
         </span>
-        <span className="text-sm font-medium group-hover:underline underline-offset-4">
-          {linkText}
-        </span>
       </div>
+
+      <p className="mt-7 text-sm leading-relaxed opacity-70">{description}</p>
+
+      <div className="mt-7 flex-1">{children}</div>
+      <span className="sr-only">{linkText}</span>
     </Link>
   );
 }

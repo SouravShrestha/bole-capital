@@ -60,7 +60,7 @@ export function FooterContact() {
         </a>
 
         <address className="text-sm opacity-70 not-italic leading-6">
-          Bank More, Dhanbad,
+          Dhanbad,
           <br />
           Jharkhand, India
           <br />

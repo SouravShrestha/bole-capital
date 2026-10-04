@@ -1,37 +1,29 @@
-import Link from "next/link";
 import { SipCalculator } from "@/components/sip-calculator/SipCalculator";
+import { pageMetadata } from "@/lib/seo";
 import { SipInfo } from "@/components/sip-calculator/SipInfo";
 
-export const metadata = {
-  title: "SIP Calculator - Bole Capital",
+export const metadata = pageMetadata({
+  title: "SIP Calculator",
   description:
-    "Estimate how your monthly SIP or lumpsum investment could grow, with optional annual step-up.",
-};
+    "Free SIP and lumpsum calculator. Estimate how your mutual fund investment could grow, with optional annual step-up and a year-by-year breakdown.",
+  path: "/resources/sip-calculator",
+  keywords: ["SIP calculator", "lumpsum calculator", "step-up SIP calculator", "mutual fund returns"],
+});
 
 export default function SipCalculatorPage() {
   return (
     <main
-      className="bg-(--bg)"
+      className="bg-(--bg) pb-10 md:pb-16"
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
     >
-      <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 md:px-12 pt-12 sm:pt-16 pb-10">
-        <nav aria-label="Breadcrumb" className="text-xs sm:text-sm mb-4">
-          <ol className="flex items-center gap-1.5">
-            <li className="opacity-60">
-              <Link href="/" className="hover:underline underline-offset-4">Home</Link>
-            </li>
-            <li aria-hidden="true" className="opacity-60">/</li>
-            <li className="opacity-60">
-              <Link href="/resources" className="hover:underline underline-offset-4">Resources</Link>
-            </li>
-            <li aria-hidden="true" className="opacity-60">/</li>
-            <li aria-current="page" className="text-[#22a352]">SIP Calculator</li>
-          </ol>
-        </nav>
-        <h1 className="text-3xl sm:text-4xl font-medium">
-          Investment <span className="opacity-60">Calculator</span>
+      <div className="mx-auto w-full max-w-3xl px-6 md:px-12 pt-32 pb-16 md:pb-48 text-center">
+        <p className="text-sm font-normal tracking-widest opacity-60 md:mb-6 mb-4">
+          Tool
+        </p>
+        <h1 className="text-4xl md:text-5xl font-medium tracking-wide font-poppins">
+          Investment Calculator
         </h1>
-        <p className="mt-4 max-w-xl text-sm sm:text-base opacity-70 leading-relaxed">
+        <p className="mt-6 md:mt-8 text-sm md:text-base opacity-70 max-w-xl mx-auto">
           See how a monthly SIP or a one-time investment could grow over time.
           Adjust the amount, period and expected return to plan your goals.
         </p>

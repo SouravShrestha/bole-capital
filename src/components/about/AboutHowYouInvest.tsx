@@ -5,7 +5,8 @@ import assetPlusLogo from "@/assets/images/logo-asset-plus.png";
 export function AboutHowYouInvest() {
   return (
     <section
-      className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-24 pb-24 sm:pb-40 mt-8"
+      id="how-you-invest"
+      className="scroll-mt-6 sm:scroll-mt-12 max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-24 pb-24 sm:pb-40 mt-8"
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
     >
       <h2 className="relative inline-block text-3xl sm:text-4xl font-semibold">

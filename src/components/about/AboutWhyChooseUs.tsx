@@ -35,6 +35,7 @@ const reasons = [
 export function AboutWhyChooseUs() {
   return (
     <section
+      id="why-bole-capital"
       className="w-full bg-[#222222] text-light"
       style={{ fontFamily: "var(--font-poppins)" }}
     >

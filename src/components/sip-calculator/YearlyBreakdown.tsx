@@ -11,7 +11,7 @@ export function YearlyBreakdown({ yearly }: { yearly: YearlyPoint[] }) {
   return (
     <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 md:px-12 mt-6">
       <div
-        className="rounded-2xl border p-6 sm:p-8"
+        className="rounded-2xl border py-6 px-6 sm:p-8"
         style={{ backgroundColor: "var(--card-back-bg)", borderColor: "var(--card-border)" }}
       >
         <h3 className="text-lg font-medium mb-5">Year-by-year breakdown</h3>
@@ -19,21 +19,21 @@ export function YearlyBreakdown({ yearly }: { yearly: YearlyPoint[] }) {
           <table className="w-full text-sm text-left tabular-nums">
             <thead>
               <tr className="border-b" style={{ borderColor: "var(--card-border)" }}>
-                <th scope="col" className="py-3 pr-4 font-medium opacity-60">Year</th>
-                <th scope="col" className="py-3 px-4 font-medium opacity-60 text-right">Invested</th>
-                <th scope="col" className="py-3 px-4 font-medium opacity-60 text-right">Returns</th>
-                <th scope="col" className="py-3 pl-4 font-medium opacity-60 text-right">Value</th>
+                <th scope="col" className="py-3 pr-1 font-medium opacity-60">Year</th>
+                <th scope="col" className="py-3 px-3 font-medium opacity-60 text-right">Invested</th>
+                <th scope="col" className="py-3 px-3 font-medium opacity-60 text-right">Returns</th>
+                <th scope="col" className="py-3 pl-3 font-medium opacity-60 text-right">Value</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((p) => (
                 <tr key={p.year} className="border-b last:border-0" style={{ borderColor: "var(--card-border)" }}>
-                  <th scope="row" className="py-3 pr-4 font-normal">{p.year}</th>
-                  <td className="py-3 px-4 text-right">{formatRupees(p.invested)}</td>
-                  <td className="py-3 px-4 text-right text-[#22a352]">
+                  <th scope="row" className="py-3 pr-1 font-normal">{p.year}</th>
+                  <td className="py-3 px-3 text-right">{formatRupees(p.invested)}</td>
+                  <td className="py-3 px-3 text-right text-[#22a352]">
                     {formatRupees(p.value - p.invested)}
                   </td>
-                  <td className="py-3 pl-4 text-right font-medium">{formatRupees(p.value)}</td>
+                  <td className="py-3 pl-3 text-right font-medium">{formatRupees(p.value)}</td>
                 </tr>
               ))}
             </tbody>

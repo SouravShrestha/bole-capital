@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { LogoIcon } from "@/icons/LogoIcon";
 import { AmfiLogoIcon } from "@/icons/AmfiLogoIcon";
+import { SITE_LAST_UPDATED } from "@/lib/seo";
 
-const LAST_UPDATED = new Date("2026-10-02").toLocaleDateString("en-US", {
+const LAST_UPDATED = new Date(SITE_LAST_UPDATED).toLocaleDateString("en-US", {
   month: "short",
   day: "2-digit",
   year: "numeric",
@@ -51,7 +52,7 @@ export function FooterBrand() {
             fontFamily: "var(--font-poppins), sans-serif",
           }}
         >
-          ARN: 386194
+          ARN: 366194
           <br />
           Legal Name: Hemant Bole
           <br />

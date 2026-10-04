@@ -7,6 +7,7 @@ import { PlusIcon } from "@/icons/PlusIcon";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
 import { IconButton } from "@/components/ui/IconButton";
 import { SearchBar } from "@/components/ui/SearchBar";
+import { HighlightText } from "@/components/ui/HighlightText";
 
 interface FaqMainProps {
   categories: FaqCategory[];
@@ -20,38 +21,9 @@ const FaqMain = ({ categories }: FaqMainProps) => {
     setOpenItems((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const highlightText = (text: string, query: string) => {
-    if (!query.trim()) return text;
-
-    const escapedQuery = query.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(`(${escapedQuery})`, "gi");
-    const parts = text.split(regex);
-
-    return (
-      <>
-        {parts.map((part, index) => {
-          if (part.toLowerCase() === query.trim().toLowerCase()) {
-            return (
-              <mark
-                key={index}
-                style={{
-                  backgroundColor: "rgba(var(--fg-rgb), 0.15)",
-                  color: "var(--fg)",
-                  fontWeight: 700,
-                  fontStyle: "italic",
-                  borderRadius: "2px",
-                  padding: "0 2px",
-                }}
-              >
-                {part}
-              </mark>
-            );
-          }
-          return <span key={index}>{part}</span>;
-        })}
-      </>
-    );
-  };
+  const highlightText = (text: string, query: string) => (
+    <HighlightText text={text} query={query} />
+  );
 
   const filteredCategories = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();

@@ -1,0 +1,202 @@
+[
+  {
+    "id": "amc",
+    "term": "AMC (Asset Management Company)",
+    "definition": "The company that launches and manages mutual fund schemes. It pools money from investors and its fund managers invest it according to each scheme's stated objective."
+  },
+  {
+    "id": "amfi",
+    "term": "AMFI",
+    "definition": "The Association of Mutual Funds in India, the industry body for mutual funds. It registers mutual fund distributors and issues their ARN."
+  },
+  {
+    "id": "arn",
+    "term": "ARN (AMFI Registration Number)",
+    "definition": "A unique number issued by AMFI to a registered mutual fund distributor. You can verify a distributor's ARN on the AMFI website."
+  },
+  {
+    "id": "asset-allocation",
+    "term": "Asset Allocation",
+    "definition": "How your money is divided across asset classes such as equity, debt and gold. It is shaped by your goals, time horizon and comfort with risk, and has a large effect on long-term outcomes."
+  },
+  {
+    "id": "aum",
+    "term": "AUM (Assets Under Management)",
+    "definition": "The total market value of the investments a fund or fund house manages on behalf of its investors."
+  },
+  {
+    "id": "benchmark",
+    "term": "Benchmark",
+    "definition": "A market index, such as the Nifty 50, that a fund's performance is compared against to judge how well it has done."
+  },
+  {
+    "id": "cagr",
+    "term": "CAGR (Compound Annual Growth Rate)",
+    "definition": "The steady yearly rate at which an investment would have grown from its starting value to its ending value. Best suited to single, one-time investments."
+  },
+  {
+    "id": "compounding",
+    "term": "Compounding",
+    "definition": "Earning returns on your past returns as well as on your original investment. The effect grows stronger the longer you stay invested."
+  },
+  {
+    "id": "debt-fund",
+    "term": "Debt Fund",
+    "definition": "A mutual fund that invests mainly in fixed-income instruments such as government securities, corporate bonds and money market instruments. Usually less volatile than equity, but not risk-free."
+  },
+  {
+    "id": "direct-regular-plan",
+    "term": "Direct Plan and Regular Plan",
+    "definition": "Two versions of the same scheme. A direct plan is bought straight from the fund house. A regular plan is bought through a distributor, includes distributor commission, and so has a slightly higher expense ratio."
+  },
+  {
+    "id": "diversification",
+    "term": "Diversification",
+    "definition": "Spreading investments across companies, sectors and asset classes so that a fall in any one of them has a smaller impact on your overall portfolio."
+  },
+  {
+    "id": "elss",
+    "term": "ELSS (Equity Linked Savings Scheme)",
+    "definition": "An equity mutual fund with a three-year lock-in. Investments may qualify for a tax deduction under Section 80C under the old tax regime."
+  },
+  {
+    "id": "equity-fund",
+    "term": "Equity Fund",
+    "definition": "A mutual fund that invests mainly in company shares. It aims for long-term growth and can move up and down sharply in the short term."
+  },
+  {
+    "id": "exit-load",
+    "term": "Exit Load",
+    "definition": "A fee some schemes charge if you redeem units before a set period. It is deducted from the redemption value and is disclosed in the scheme documents."
+  },
+  {
+    "id": "expense-ratio",
+    "term": "Expense Ratio",
+    "definition": "The yearly cost of running a fund, shown as a percentage of its assets. It is deducted from the fund's NAV, so returns you see are already net of it."
+  },
+  {
+    "id": "folio",
+    "term": "Folio Number",
+    "definition": "An account number a fund house gives you to track your holdings, transactions and statements with that fund house."
+  },
+  {
+    "id": "goal-based-investing",
+    "term": "Goal-based Investing",
+    "definition": "Planning investments around specific goals such as education, a home or retirement, with an amount and timeline for each, instead of picking products first."
+  },
+  {
+    "id": "hybrid-fund",
+    "term": "Hybrid Fund",
+    "definition": "A mutual fund that invests in a mix of asset classes, typically equity and debt, to balance growth with stability."
+  },
+  {
+    "id": "index-fund",
+    "term": "Index Fund",
+    "definition": "A passively managed fund that aims to track a market index, such as the Nifty 50, by holding the same securities in the same proportions."
+  },
+  {
+    "id": "kyc",
+    "term": "KYC (Know Your Customer)",
+    "definition": "A one-time identity and address verification required before investing in mutual funds. It is completed using documents such as PAN and Aadhaar."
+  },
+  {
+    "id": "large-mid-small-cap",
+    "term": "Large, Mid and Small Cap",
+    "definition": "Categories of companies by market value. Large caps are the biggest and usually most stable, small caps are the smallest and usually most volatile, and mid caps sit in between."
+  },
+  {
+    "id": "lock-in-period",
+    "term": "Lock-in Period",
+    "definition": "A fixed period during which an investment cannot be redeemed, such as the three-year lock-in on ELSS funds."
+  },
+  {
+    "id": "lumpsum",
+    "term": "Lumpsum",
+    "definition": "Investing a larger amount in one go, as opposed to spreading it out over time through a SIP."
+  },
+  {
+    "id": "nav",
+    "term": "NAV (Net Asset Value)",
+    "definition": "The per-unit value of a mutual fund, calculated at the end of each business day. Purchases and redemptions happen at the applicable NAV."
+  },
+  {
+    "id": "nominee",
+    "term": "Nominee",
+    "definition": "The person you name to receive your investments in the event of your death. Keeping nominations up to date makes the transfer simpler for your family."
+  },
+  {
+    "id": "nps",
+    "term": "NPS (National Pension System)",
+    "definition": "A government-backed, long-term retirement savings scheme regulated by the PFRDA. Contributions are invested in a mix of equity, corporate bonds and government securities."
+  },
+  {
+    "id": "pms",
+    "term": "PMS (Portfolio Management Services)",
+    "definition": "A SEBI-regulated service where a professional manager runs a portfolio of securities held directly in your name. It has a high minimum investment and suits experienced investors."
+  },
+  {
+    "id": "portfolio-review",
+    "term": "Portfolio Review",
+    "definition": "A periodic check of your investments against your goals, looking at allocation, overlap between funds, performance and costs."
+  },
+  {
+    "id": "rebalancing",
+    "term": "Rebalancing",
+    "definition": "Bringing your portfolio back to its target asset allocation after market movements have shifted it, by trimming what has grown and adding to what has lagged."
+  },
+  {
+    "id": "redemption",
+    "term": "Redemption",
+    "definition": "Selling your mutual fund units back to the fund house. The money is paid out at the applicable NAV, less any exit load."
+  },
+  {
+    "id": "riskometer",
+    "term": "Riskometer",
+    "definition": "A SEBI-mandated label on every mutual fund that shows its risk level on a scale from Low to Very High."
+  },
+  {
+    "id": "sebi",
+    "term": "SEBI",
+    "definition": "The Securities and Exchange Board of India, the regulator for securities markets, mutual funds and portfolio managers in India."
+  },
+  {
+    "id": "sif",
+    "term": "SIF (Specialised Investment Fund)",
+    "definition": "A SEBI-regulated category that sits between mutual funds and PMS. It allows more flexible strategies than mutual funds and has a higher minimum investment."
+  },
+  {
+    "id": "sip",
+    "term": "SIP (Systematic Investment Plan)",
+    "definition": "Investing a fixed amount in a mutual fund at regular intervals, usually monthly. It builds discipline and spreads your purchases across market ups and downs."
+  },
+  {
+    "id": "step-up-sip",
+    "term": "Step-up SIP",
+    "definition": "A SIP where the instalment increases by a set amount or percentage each year, usually in line with growth in income."
+  },
+  {
+    "id": "stp",
+    "term": "STP (Systematic Transfer Plan)",
+    "definition": "Moving a fixed amount at regular intervals from one scheme to another within the same fund house, often from a debt fund into an equity fund."
+  },
+  {
+    "id": "swp",
+    "term": "SWP (Systematic Withdrawal Plan)",
+    "definition": "Withdrawing a fixed amount from a mutual fund at regular intervals, often used to create a steady income in retirement."
+  },
+  {
+    "id": "term-insurance",
+    "term": "Term Insurance",
+    "definition": "Pure life cover that pays a fixed sum to your nominee if you die during the policy term. It has no investment component, which keeps premiums low."
+  },
+  {
+    "id": "units",
+    "term": "Units",
+    "definition": "Your share of a mutual fund. The number of units you receive equals the amount invested divided by the NAV."
+  },
+  {
+    "id": "xirr",
+    "term": "XIRR",
+    "definition": "An annualised return that accounts for the timing of each cash flow. It is the right way to measure returns on SIPs and investments made over time."
+  }
+]
