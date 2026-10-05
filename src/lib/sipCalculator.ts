@@ -31,7 +31,7 @@ export interface CalculatorResult {
  * Using the effective rate (rather than annual/12) means 12 months of
  * compounding reproduces the stated annual return exactly.
  */
-function monthlyRate(annualRatePercent: number): number {
+export function monthlyRate(annualRatePercent: number): number {
   return Math.pow(1 + annualRatePercent / 100, 1 / 12) - 1;
 }
 

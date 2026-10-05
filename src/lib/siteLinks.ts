@@ -51,6 +51,7 @@ export const COMPANY_LINKS: SiteLink[] = [
 
 export const RESOURCE_LINKS: SiteLink[] = [
   { label: "SIP Calculator", href: "/resources/sip-calculator" },
+  { label: "Goal Planner", href: "/resources/goal-planner" },
   { label: "FAQs", href: "/faq" },
   { label: "Glossary", href: "/glossary" },
   { label: "Sitemap", href: "/sitemap" },

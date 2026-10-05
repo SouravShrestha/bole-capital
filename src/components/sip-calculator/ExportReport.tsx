@@ -11,8 +11,17 @@ import { DownloadOverlay } from "./DownloadOverlay";
 import { DownloadIcon } from "@/icons/DownloadIcon";
 import { PdfFileIcon } from "@/icons/PdfFileIcon";
 import { PngFileIcon } from "@/icons/PngFileIcon";
-import type { CalculatorInputs } from "@/lib/sipCalculator";
-import type { ExportProgress, ReportFormat } from "@/lib/sipReport";
+import type { ExportOptions, ExportProgress, ReportFormat } from "@/lib/reportEngine";
+
+/**
+ * Lazily loads a report module and returns a function that exports the
+ * current plan. Loaded on demand so the canvas renderer and jsPDF stay out of
+ * the page bundle, e.g.
+ * `() => import("@/lib/sipReport").then((m) => (f, o) => m.exportSipReport(inputs, f, o))`.
+ */
+export type ReportLoader = () => Promise<
+  (format: ReportFormat, options: ExportOptions) => Promise<void>
+>;
 
 const FORMATS: {
   value: ReportFormat;
@@ -30,11 +39,10 @@ const MIN_OVERLAY_MS = 800;
 /** Event-time clock (kept out of the component body for the React Compiler purity lint). */
 const timestamp = () => performance.now();
 
-/** Loaded on demand so the canvas renderer and jsPDF stay out of the page bundle. */
-const loadReportModule = () => import("@/lib/sipReport");
+const loadEngine = () => import("@/lib/reportEngine");
 
 /** Download buttons that render the current plan into a PDF or PNG report. */
-export function ExportReport({ inputs }: { inputs: CalculatorInputs }) {
+export function ExportReport({ load }: { load: ReportLoader }) {
   const labelId = useId();
   const [busy, setBusy] = useState<{ format: ReportFormat; startedAt: number } | null>(null);
   const [progress, setProgress] = useState<ExportProgress | null>(null);
@@ -47,11 +55,12 @@ export function ExportReport({ inputs }: { inputs: CalculatorInputs }) {
 
   /** Starts fetching the renderer (and jsPDF for PDF) before the click lands. */
   function preload(format: ReportFormat) {
-    loadReportModule()
-      .then((m) => {
+    Promise.all([
+      load(),
+      loadEngine().then((m) => {
         if (format === "pdf") m.preloadPdfEngine();
-      })
-      .catch(() => {
+      }),
+    ]).catch(() => {
         // Ignored; the click handler retries and reports failures.
       });
   }
@@ -64,9 +73,9 @@ export function ExportReport({ inputs }: { inputs: CalculatorInputs }) {
     setProgress(null);
     setError(null);
     try {
-      const { exportSipReport } = await loadReportModule();
+      const run = await load();
       signal.throwIfAborted();
-      await exportSipReport(inputs, format, {
+      await run(format, {
         signal,
         minDurationMs: MIN_OVERLAY_MS,
         onProgress: (p) => {
@@ -75,7 +84,7 @@ export function ExportReport({ inputs }: { inputs: CalculatorInputs }) {
       });
     } catch (err) {
       if (signal.aborted) return; // Cancelled by the user; nothing to report.
-      console.error("SIP report export failed", err);
+      console.error("Report export failed", err);
       setError("Couldn't create the file. Please try again.");
     } finally {
       // Only clear state owned by this export (a cancel may already have reset it).

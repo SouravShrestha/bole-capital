@@ -56,7 +56,7 @@ const SECTIONS: LegalSection[] = [
     body: [
       <>
         Tools such as the {internal("/resources/sip-calculator", "SIP calculator")}{" "}
-        use the assumptions you enter, such as an expected rate of return. Results
+        and {internal("/resources/goal-planner", "goal planner")} use the assumptions you enter, such as an expected rate of return. Results
         are illustrations only, do not represent the performance of any scheme
         and are not a promise of returns.
       </>,

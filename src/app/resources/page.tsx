@@ -8,7 +8,7 @@ import { PopularQuestions } from "@/components/resources/PopularQuestions";
 export const metadata: Metadata = pageMetadata({
   title: "Resources",
   description:
-    "SIP calculator, FAQs and a glossary of investing terms to help mutual fund investors make clearer decisions.",
+    "SIP calculator, goal planner, FAQs and a glossary of investing terms to help mutual fund investors make clearer decisions.",
   path: "/resources",
 });
 

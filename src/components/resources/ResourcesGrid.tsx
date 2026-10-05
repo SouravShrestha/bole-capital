@@ -11,6 +11,8 @@ import {
   INVESTED_COLOR,
   RETURNS_COLOR,
 } from "@/components/sip-calculator/ResultCharts";
+import { TargetIcon } from "@/icons/TargetIcon";
+import { GOAL_META, GOAL_ORDER } from "@/components/goal-planner/goalConfig";
 import { ResourceCard } from "./ResourceCard";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -61,6 +63,23 @@ function SipPreview() {
   );
 }
 
+// Goals the planner covers, styled like the FAQ category pills.
+function GoalPreview() {
+  return (
+    <ul className="flex flex-wrap gap-2">
+      {GOAL_ORDER.map((goal) => (
+        <li
+          key={goal}
+          className="rounded-full border px-3 py-2 text-xs"
+          style={{ borderColor: "var(--card-border)" }}
+        >
+          <span className="opacity-80">{GOAL_META[goal].title}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function FaqPreview({ categories }: { categories: FaqCategory[] }) {
   return (
     <ul className="flex flex-wrap gap-2">
@@ -97,6 +116,18 @@ export function ResourcesGrid({ categories }: { categories: FaqCategory[] }) {
           </ResourceCard>
         </Reveal>
         <Reveal delay={140} className="h-full">
+          <ResourceCard
+            href="/resources/goal-planner"
+            eyebrow="Tool"
+            title="Goal Planner"
+            description="Your child's education, retirement, dream home or dream car. See what it will cost after inflation and what to invest today to get there."
+            linkText="Open goal planner"
+            icon={<TargetIcon className="w-6 h-6" />}
+          >
+            <GoalPreview />
+          </ResourceCard>
+        </Reveal>
+        <Reveal delay={280} className="h-full lg:col-span-2">
           <ResourceCard
             href="/faq"
             eyebrow={`${totalQuestions} answers`}

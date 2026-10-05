@@ -319,7 +319,13 @@ export function SipCalculator() {
           </div>
 
           <div className="flex flex-col items-center gap-6 mt-auto border-t border-(--card-border) pt-4">
-            <ExportReport inputs={reportInputs} />
+            <ExportReport
+              load={() =>
+                import("@/lib/sipReport").then(
+                  (m) => (format, options) => m.exportSipReport(reportInputs, format, options)
+                )
+              }
+            />
             <IconButton
               as="link"
               href={`/contact?message=${encodeURIComponent(

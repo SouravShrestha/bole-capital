@@ -7,7 +7,7 @@ type Props<T extends string> = {
   value: T;
   onChange: (value: T) => void;
   ariaLabel: string;
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "compact";
 };
 
 /** Pill-style radio group used for SIP/Lumpsum, Yes/No and chart view switches. */
@@ -18,7 +18,12 @@ export function SegmentedToggle<T extends string>({
   ariaLabel,
   size = "md",
 }: Props<T>) {
-  const padding = size === "sm" ? "px-3 py-1 text-xs" : "px-6 py-2 text-sm";
+  const padding = {
+    sm: "px-3 py-1 text-xs",
+    md: "px-6 py-2 text-sm",
+    // Tighter on small screens so 4+ options fit inside a card.
+    compact: "px-3 sm:px-4 py-2 text-xs sm:text-sm",
+  }[size];
   return (
     <div
       role="radiogroup"
