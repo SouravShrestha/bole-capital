@@ -27,13 +27,6 @@ export function TestimonialsSection() {
       </RevealText>
 
       <TestimonialsCarousel testimonials={testimonials} />
-
-      <p
-        className="mt-6 text-xs text-center opacity-70"
-        style={{ fontFamily: "var(--font-poppins)", color: "var(--fg)" }}
-      >
-        {TESTIMONIAL_DISCLAIMER}
-      </p>
     </section>
   );
 }

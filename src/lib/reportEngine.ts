@@ -9,7 +9,8 @@
  * loaded lazily on demand.
  */
 import { LOGO_PATHS, LOGO_VIEWBOX } from "@/icons/LogoIcon";
-import { SITE_URL } from "@/lib/seo";
+// Reports always carry the public brand URL, even when generated on test.
+import { PRODUCTION_SITE_URL as SITE_URL } from "@/lib/seo";
 import { COMPLIANCE } from "@/lib/compliance";
 
 /* ------------------------------------------------------------------ */

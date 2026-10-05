@@ -10,6 +10,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import {
   CONTACT,
   SITE_DESCRIPTION,
+  IS_PRODUCTION_SITE,
   SITE_NAME,
   SITE_URL,
 } from "@/lib/seo";
@@ -63,11 +64,14 @@ export const metadata: Metadata = {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  // Test hosts stay crawlable (link-preview bots must fetch them) but unindexed.
+  robots: IS_PRODUCTION_SITE
+    ? {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large" },
+      }
+    : { index: false, follow: false },
   formatDetection: { telephone: false, email: false, address: false },
 };
 

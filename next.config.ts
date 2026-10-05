@@ -5,6 +5,21 @@ import { resolveLastUpdated } from "./src/lib/lastUpdated";
 const isDev = process.env.NODE_ENV !== "production";
 
 /**
+ * Public origin of this deployment (see SITE_URL in src/lib/seo.ts). Set
+ * SITE_URL=https://test.bolecapital.in for test builds; defaults to production.
+ * Validated here so a typo fails the build instead of shipping broken previews.
+ */
+function resolveSiteUrl(): string {
+  const raw = process.env.SITE_URL?.trim();
+  if (!raw) return "https://bolecapital.in";
+  const url = new URL(raw);
+  if (url.protocol !== "https:" && !isDev) {
+    throw new Error(`SITE_URL must be https in production builds, got "${raw}"`);
+  }
+  return url.origin;
+}
+
+/**
  * 'unsafe-inline' for scripts keeps pages statically prerendered; a nonce-based
  * CSP would force every page to render per request. Dev needs 'unsafe-eval'
  * for React's debugging features and ws: for HMR.
@@ -35,6 +50,7 @@ const nextConfig: NextConfig = {
   // Inlined at build time; read via SITE_LAST_UPDATED in src/lib/seo.ts.
   env: {
     SITE_LAST_UPDATED: resolveLastUpdated(),
+    SITE_URL: resolveSiteUrl(),
   },
   images: {
     unoptimized: true,

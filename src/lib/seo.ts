@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 
-export const SITE_URL = "https://bolecapital.in";
+/** The public production origin. Used where the brand URL must not change per env. */
+export const PRODUCTION_SITE_URL = "https://bolecapital.in";
+/**
+ * Origin of the current deployment, inlined at build time by next.config.ts
+ * from the SITE_URL env var (e.g. https://test.bolecapital.in in CI test jobs).
+ * Drives metadataBase, canonical/og:url, og:image, sitemap and JSON-LD, so link
+ * previews on non-prod hosts point at their own /opengraph-image.
+ */
+export const SITE_URL: string = process.env.SITE_URL || PRODUCTION_SITE_URL;
+/** Non-production builds are kept out of search indexes. */
+export const IS_PRODUCTION_SITE = SITE_URL === PRODUCTION_SITE_URL;
 export const SITE_NAME = "Bole Capital";
 export const SITE_DESCRIPTION =
   "Bole Capital helps individuals and families build and protect wealth through a disciplined, long-term approach.";
