@@ -5,13 +5,13 @@ import { VerifiedIcon } from "@/icons/VerifiedIcon";
 import { Reveal } from "@/components/motion/Reveal";
 
 const services = [
-  { label: "Financial guidance", filled: true, rotate: -3 },
+  { label: "Mutual funds", filled: true, rotate: -3 },
   { label: "SIF", filled: false, rotate: -12 },
   { label: "PMS", filled: false, rotate: -4 },
   { label: "Insurance", filled: true, rotate: 4 },
   { label: "NPS", filled: false, rotate: -3 },
-  { label: "Portfolio Review", filled: false, rotate: 12 },
-  { label: "Mutual funds", filled: true, rotate: -3 },
+  { label: "Portfolio review", filled: false, rotate: 12 },
+  { label: "Goal based planning", filled: true, rotate: -3 },
 ];
 
 const credentials = [
