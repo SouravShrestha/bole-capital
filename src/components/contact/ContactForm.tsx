@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { IconButton } from "@/components/ui/IconButton";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
+import { HoneypotField } from "@/components/ui/HoneypotField";
+import { FORM_LIMITS, HONEYPOT_FIELD } from "@/lib/formLimits";
 
-const MAX_MESSAGE_LENGTH = 300;
+const MAX_MESSAGE_LENGTH = FORM_LIMITS.message;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 interface FormState {
@@ -37,7 +39,8 @@ function validateField(name: keyof FormState, value: string): string {
         : "";
     case "phone":
       if (!trimmed) return "Phone number is required.";
-      return trimmed.replace(/\D/g, "").length < 7
+      return !/^[0-9+\-().\s]+$/.test(trimmed) ||
+        trimmed.replace(/\D/g, "").length < 7
         ? "Enter a valid phone number."
         : "";
     case "message":
@@ -57,6 +60,7 @@ export function ContactForm() {
     ...EMPTY_FORM,
     message: searchParams.get("message") ?? "",
   }));
+  const [honeypot, setHoneypot] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<{
@@ -102,7 +106,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, [HONEYPOT_FIELD]: honeypot }),
       });
 
       if (res.status === 429) {
@@ -131,9 +135,10 @@ export function ContactForm() {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="flex flex-col gap-5 w-full"
+      className="relative flex flex-col gap-5 w-full"
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
     >
+      <HoneypotField value={honeypot} onChange={setHoneypot} />
       {FIELDS.map(({ name, label, type }) => (
         <label key={name} className="flex flex-col gap-2 text-sm">
           <span className="flex items-center justify-between gap-2">
@@ -147,6 +152,7 @@ export function ContactForm() {
               <textarea
                 name={name}
                 rows={5}
+                maxLength={FORM_LIMITS.message}
                 value={form[name]}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -162,6 +168,7 @@ export function ContactForm() {
             <input
               name={name}
               type={type}
+              maxLength={FORM_LIMITS[name]}
               value={form[name]}
               onChange={handleChange}
               onBlur={handleBlur}

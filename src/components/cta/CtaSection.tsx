@@ -3,6 +3,8 @@
 import { useState, type FormEvent } from "react";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealText } from "@/components/motion/RevealText";
+import { HoneypotField } from "@/components/ui/HoneypotField";
+import { FORM_LIMITS, HONEYPOT_FIELD } from "@/lib/formLimits";
 
 export function CtaSection() {
   const [formData, setFormData] = useState({
@@ -10,6 +12,7 @@ export function CtaSection() {
     email: "",
     phone: "",
   });
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
@@ -22,7 +25,7 @@ export function CtaSection() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, [HONEYPOT_FIELD]: honeypot }),
       });
 
       if (!res.ok) throw new Error("Request failed");
@@ -65,11 +68,13 @@ export function CtaSection() {
             and how a clear plan could look.
           </p>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="relative flex flex-col gap-4">
+            <HoneypotField value={honeypot} onChange={setHoneypot} />
             <input
               type="text"
               placeholder="Name *"
               required
+              maxLength={FORM_LIMITS.name}
               value={formData.name}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, name: e.target.value }))
@@ -80,6 +85,7 @@ export function CtaSection() {
               type="email"
               placeholder="Email"
               required
+              maxLength={FORM_LIMITS.email}
               value={formData.email}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, email: e.target.value }))
@@ -90,6 +96,9 @@ export function CtaSection() {
               type="tel"
               placeholder="Phone *"
               required
+              maxLength={FORM_LIMITS.phone}
+              pattern="[0-9+\-\(\)\.\s]{7,}"
+              title="Enter a valid phone number"
               value={formData.phone}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, phone: e.target.value }))

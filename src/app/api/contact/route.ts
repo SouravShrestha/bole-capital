@@ -1,53 +1,54 @@
 import { NextRequest, NextResponse } from "next/server";
 import notificationService from "@/api/notification/notificationService";
-import type { ContactPayload } from "@/api/notification/INotificationService";
 import { checkRateLimit } from "@/lib/rateLimiter";
+import {
+  FormError,
+  LIMITS,
+  assertSameOrigin,
+  errorResponse,
+  getClientIp,
+  isBot,
+  optionalString,
+  readJsonBody,
+  requiredString,
+  validateEmail,
+  validatePhone,
+} from "@/lib/formSecurity";
 
 const RATE_LIMIT = { maxRequests: 1, windowMs: 60_000 };
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const MAX_MESSAGE_LENGTH = 300;
 
 export async function POST(req: NextRequest) {
-  const ip =
-    req.headers.get("cf-connecting-ip") ??
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ??
-    "unknown";
-
-  const { allowed, retryAfterMs } = checkRateLimit(`contact:${ip}`, RATE_LIMIT);
-
-  if (!allowed) {
-    return NextResponse.json(
-      { error: "Too many requests. Please try again later." },
-      {
-        status: 429,
-        headers: { "Retry-After": String(Math.ceil(retryAfterMs / 1000)) },
-      }
-    );
-  }
-
   try {
-    const body = (await req.json()) as ContactPayload;
-    const name = body.name?.trim();
-    const phone = body.phone?.trim();
-    const message = body.message?.trim();
-    const email = body.email?.trim() || undefined;
+    // Cheap checks first so cross-site/junk requests don't consume rate-limit quota.
+    assertSameOrigin(req);
 
-    if (!name || !phone || !message) {
-      return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
+    const { allowed, retryAfterMs } = checkRateLimit(`contact:${getClientIp(req)}`, RATE_LIMIT);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again later." },
+        { status: 429, headers: { "Retry-After": String(Math.ceil(retryAfterMs / 1000)) } }
+      );
     }
 
-    if (message.length > MAX_MESSAGE_LENGTH) {
-      return NextResponse.json({ error: "Message is too long." }, { status: 400 });
+    const body = await readJsonBody(req);
+
+    // Pretend success so bots don't learn they were filtered.
+    if (isBot(body)) {
+      console.warn("Contact: honeypot triggered, submission dropped");
+      return NextResponse.json({ success: true });
     }
 
-    if (email && !EMAIL_REGEX.test(email)) {
-      return NextResponse.json({ error: "Enter a valid email address." }, { status: 400 });
-    }
+    const name = requiredString(body, "name", LIMITS.name);
+    const phone = validatePhone(requiredString(body, "phone", LIMITS.phone));
+    const message = requiredString(body, "message", LIMITS.message, { multiline: true });
+    const rawEmail = optionalString(body, "email", LIMITS.email);
+    const email = rawEmail ? validateEmail(rawEmail) : undefined;
 
     await notificationService.sendContactNotification({ name, phone, message, email });
 
     return NextResponse.json({ success: true });
   } catch (err) {
+    if (err instanceof FormError) return errorResponse(err);
     console.error("Contact API error:", err);
     return NextResponse.json({ error: "Failed to send notification." }, { status: 500 });
   }
