@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  type CSSProperties,
   useCallback,
   useEffect,
   useMemo,
@@ -10,7 +11,7 @@ import {
 } from "react";
 import { TestimonialCard } from "./TestimonialCard";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
-import { Reveal } from "@/components/motion/Reveal";
+import { useInView } from "@/components/motion/useInView";
 import type { Testimonial } from "@/types/testimonial";
 
 type TestimonialsCarouselProps = {
@@ -73,7 +74,12 @@ export function TestimonialsCarousel({
   const slideCount = slides.length;
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [rawActive, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  // Pause only for real mouse hover and keyboard focus. Mouse clicks on the
+  // nav buttons also focus them, and touch taps fire emulated mouseenter with
+  // no mouseleave, either of which would otherwise pause the carousel forever.
+  const [hovered, setHovered] = useState(false);
+  const [keyboardFocused, setKeyboardFocused] = useState(false);
+  const paused = hovered || keyboardFocused;
   // Clamp during render: a breakpoint change can shrink the slide count.
   const active = Math.min(rawActive, Math.max(slideCount - 1, 0));
 
@@ -124,12 +130,18 @@ export function TestimonialsCarousel({
       aria-roledescription="carousel"
       aria-label="Client testimonials"
       className="relative my-12 sm:my-16 md:my-20"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
+      onPointerEnter={(e) => {
+        if (e.pointerType === "mouse") setHovered(true);
+      }}
+      onPointerLeave={(e) => {
+        if (e.pointerType === "mouse") setHovered(false);
+      }}
+      onFocus={(e) => {
+        if (e.target.matches(":focus-visible")) setKeyboardFocused(true);
+      }}
       onBlur={(e) => {
         if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
-          setPaused(false);
+          setKeyboardFocused(false);
         }
       }}
     >
@@ -158,23 +170,56 @@ export function TestimonialsCarousel({
         className="-mx-5 sm:-mx-8 md:-mx-12 lg:-mx-24 flex overflow-x-auto snap-x snap-mandatory overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {slides.map((slide, slideIndex) => (
-          <div
+          <Slide
             key={`${perSlide}-${slideIndex}`}
-            role="group"
-            aria-roledescription="slide"
-            aria-label={`${slideIndex + 1} of ${slideCount}`}
-            aria-hidden={slideIndex !== active}
-            className="w-full shrink-0 snap-start grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-8 px-7 sm:px-10 md:px-14 lg:px-26 py-4"
-          >
-            {slide.map((t, cardIndex) => (
-              <Reveal key={t.name} variant="scale" delay={cardIndex * 140}>
-                <TestimonialCard {...t} />
-              </Reveal>
-            ))}
-          </div>
+            testimonials={slide}
+            label={`${slideIndex + 1} of ${slideCount}`}
+            hidden={slideIndex !== active}
+          />
         ))}
       </div>
 
+    </div>
+  );
+}
+
+/**
+ * One slide of cards. The slide itself is the scroll trigger, so every card in
+ * it reveals at once (with a short stagger) instead of each card waiting to
+ * scroll into view on its own, which left the last stacked card on mobile
+ * hidden until the user scrolled further.
+ */
+function Slide({
+  testimonials,
+  label,
+  hidden,
+}: {
+  testimonials: Testimonial[];
+  label: string;
+  hidden: boolean;
+}) {
+  const [ref, inView] = useInView<HTMLDivElement>();
+
+  return (
+    <div
+      ref={ref}
+      role="group"
+      aria-roledescription="slide"
+      aria-label={label}
+      aria-hidden={hidden}
+      className="w-full shrink-0 snap-start grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-8 px-7 sm:px-10 md:px-14 lg:px-26 py-4"
+    >
+      {testimonials.map((t, cardIndex) => (
+        // Same attributes <Reveal> sets; styles live in globals.css.
+        <div
+          key={t.name}
+          data-reveal="scale"
+          data-revealed={inView ? "" : undefined}
+          style={{ "--reveal-delay": `${cardIndex * 140}ms` } as CSSProperties}
+        >
+          <TestimonialCard {...t} />
+        </div>
+      ))}
     </div>
   );
 }
