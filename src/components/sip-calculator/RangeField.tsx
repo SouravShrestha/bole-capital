@@ -2,6 +2,8 @@
 import { useId, useState } from "react";
 import { formatNumber } from "@/lib/sipCalculator";
 
+export type RangeMark = { value: number; label: string };
+
 type Props = {
   label: string;
   value: number;
@@ -18,12 +20,46 @@ type Props = {
   hideSlider?: boolean;
   /** Extra controls rendered next to the label (e.g. a toggle). */
   labelAddon?: React.ReactNode;
+  /**
+   * Break points shown under the slider. When set, the slider uses a
+   * piecewise scale so marks are evenly spaced, and it snaps to a mark
+   * when dragged close to one.
+   */
+  marks?: RangeMark[];
 };
 
 const ACCENT = "#22a352";
+/** Internal resolution of the slider when using a piecewise (marked) scale. */
+const SCALE = 1000;
+/** Distance (in SCALE units) within which the slider snaps to a mark. */
+const SNAP_DISTANCE = 25;
+/** Thumb width in px, must match `.sip-range` thumb in globals.css. */
+const THUMB = 20;
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value));
+}
+
+/** Map a value to a slider position, treating each gap between stops as an equal segment. */
+function valueToPos(value: number, stops: number[]) {
+  const segments = stops.length - 1;
+  for (let i = 0; i < segments; i++) {
+    const lo = stops[i];
+    const hi = stops[i + 1];
+    if (value <= hi || i === segments - 1) {
+      const frac = clamp((value - lo) / (hi - lo), 0, 1);
+      return ((i + frac) / segments) * SCALE;
+    }
+  }
+  return 0;
+}
+
+function posToValue(pos: number, stops: number[], step: number) {
+  const segments = stops.length - 1;
+  const t = (pos / SCALE) * segments;
+  const i = Math.min(Math.floor(t), segments - 1);
+  const raw = stops[i] + (t - i) * (stops[i + 1] - stops[i]);
+  return Math.round(raw / step) * step;
 }
 
 export function RangeField({
@@ -38,6 +74,7 @@ export function RangeField({
   disabled = false,
   hideSlider = false,
   labelAddon,
+  marks,
 }: Props) {
   const id = useId();
   // While focused, the user's raw text is shown so they can type freely.
@@ -52,7 +89,28 @@ export function RangeField({
     setDraft(null);
   };
 
-  const percent = ((value - min) / (max - min)) * 100;
+  const hasMarks = !!marks && marks.length > 0;
+  const stops = hasMarks
+    ? [min, ...marks.map((m) => m.value).filter((v) => v > min && v < max), max]
+    : [min, max];
+
+  const sliderValue = hasMarks ? valueToPos(value, stops) : value;
+  const percent = hasMarks
+    ? (sliderValue / SCALE) * 100
+    : ((value - min) / (max - min)) * 100;
+
+  const handleSlider = (raw: number) => {
+    if (!hasMarks) {
+      onChange(raw);
+      return;
+    }
+    const snapped = marks.find(
+      (m) => Math.abs(valueToPos(m.value, stops) - raw) <= SNAP_DISTANCE
+    );
+    onChange(
+      snapped ? snapped.value : clamp(posToValue(raw, stops, step), min, max)
+    );
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -98,20 +156,49 @@ export function RangeField({
         </div>
       </div>
       {!hideSlider && (
-        <input
-          type="range"
-          aria-label={label}
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          disabled={disabled}
-          onChange={(e) => onChange(Number(e.target.value))}
-          className="sip-range w-full"
-          style={{
-            background: `linear-gradient(to right, ${ACCENT} ${percent}%, var(--card-border) ${percent}%)`,
-          }}
-        />
+        <div className="flex flex-col gap-2">
+          <input
+            type="range"
+            aria-label={label}
+            aria-valuetext={`${format(value)} ${unit}`}
+            min={hasMarks ? 0 : min}
+            max={hasMarks ? SCALE : max}
+            step={hasMarks ? 1 : step}
+            value={sliderValue}
+            disabled={disabled}
+            onChange={(e) => handleSlider(Number(e.target.value))}
+            className="sip-range w-full"
+            style={{
+              background: `linear-gradient(to right, ${ACCENT} ${percent}%, var(--card-border) ${percent}%)`,
+            }}
+          />
+          {hasMarks && (
+            <div className="relative h-5" aria-hidden="true">
+              {marks.map((m) => {
+                const pos = valueToPos(m.value, stops) / SCALE;
+                const active = m.value === value;
+                return (
+                  <button
+                    key={m.value}
+                    type="button"
+                    tabIndex={-1}
+                    disabled={disabled}
+                    onClick={() => onChange(m.value)}
+                    className={`absolute top-0 -translate-x-1/2 text-xs tabular-nums transition-opacity hover:cursor-pointer disabled:cursor-not-allowed ${
+                      active ? "font-semibold text-[#22a352]" : "opacity-50 hover:opacity-100"
+                    }`}
+                    style={{
+                      // Align with the thumb centre, which travels THUMB/2 in from each edge.
+                      left: `calc(${THUMB / 2}px + (100% - ${THUMB}px) * ${pos})`,
+                    }}
+                  >
+                    {m.label}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

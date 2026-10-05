@@ -8,7 +8,7 @@ import {
   formatRupeesCompact,
   type CalculatorMode,
 } from "@/lib/sipCalculator";
-import { RangeField } from "./RangeField";
+import { RangeField, type RangeMark } from "./RangeField";
 import { SegmentedToggle } from "./SegmentedToggle";
 import {
   DonutChart,
@@ -26,6 +26,40 @@ const LIMITS = {
   rate: { min: 1, max: 30, step: 0.5 },
 } as const;
 
+/** Slider break points; the slider snaps to these when dragged nearby. */
+const MARKS = {
+  sip: [
+    { value: 5000, label: "5K" },
+    { value: 10000, label: "10K" },
+    { value: 25000, label: "25K" },
+    { value: 50000, label: "50K" },
+  ],
+  lumpsum: [
+    { value: 25000, label: "25K" },
+    { value: 50000, label: "50K" },
+    { value: 100000, label: "1L" },
+    { value: 500000, label: "5L" },
+  ],
+  stepUp: [
+    { value: 1000, label: "1K" },
+    { value: 2000, label: "2K" },
+    { value: 5000, label: "5K" },
+    { value: 10000, label: "10K" },
+  ],
+  years: [
+    { value: 2, label: "2Y" },
+    { value: 5, label: "5Y" },
+    { value: 10, label: "10Y" },
+    { value: 20, label: "20Y" },
+  ],
+  rate: [
+    { value: 10, label: "10%" },
+    { value: 12, label: "12%" },
+    { value: 14, label: "14%" },
+    { value: 16, label: "16%" },
+  ],
+} satisfies Record<string, RangeMark[]>;
+
 const EXTEND_OPTIONS = [5, 7, 10] as const;
 type ExtendBy = `${(typeof EXTEND_OPTIONS)[number]}`;
 
@@ -41,11 +75,11 @@ const cardStyle: React.CSSProperties = {
 export function SipCalculator() {
   const [mode, setMode] = useState<CalculatorMode>("sip");
   const [sipAmount, setSipAmount] = useState(5000);
-  const [lumpsumAmount, setLumpsumAmount] = useState(100000);
+  const [lumpsumAmount, setLumpsumAmount] = useState(25000);
   const [stepUpEnabled, setStepUpEnabled] = useState(false);
-  const [stepUp, setStepUp] = useState(500);
-  const [years, setYears] = useState(10);
-  const [rate, setRate] = useState(12);
+  const [stepUp, setStepUp] = useState(1000);
+  const [years, setYears] = useState(5);
+  const [rate, setRate] = useState(10);
   const [view, setView] = useState<"donut" | "bars">("donut");
   const [extendBy, setExtendBy] = useState<ExtendBy>("5");
 
@@ -102,6 +136,7 @@ export function SipCalculator() {
             unit="₹"
             value={amount}
             onChange={isSip ? setSipAmount : setLumpsumAmount}
+            marks={isSip ? MARKS.sip : MARKS.lumpsum}
             {...amountLimits}
           />
 
@@ -125,6 +160,7 @@ export function SipCalculator() {
                   ]}
                 />
               }
+              marks={MARKS.stepUp}
               {...LIMITS.stepUp}
             />
           )}
@@ -135,6 +171,7 @@ export function SipCalculator() {
             value={years}
             onChange={setYears}
             format={formatYears}
+            marks={MARKS.years}
             {...LIMITS.years}
           />
 
@@ -144,6 +181,7 @@ export function SipCalculator() {
             value={rate}
             onChange={setRate}
             format={formatRate}
+            marks={MARKS.rate}
             {...LIMITS.rate}
           />
 
