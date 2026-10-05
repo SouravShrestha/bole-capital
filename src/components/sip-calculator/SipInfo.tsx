@@ -1,4 +1,5 @@
-const POINTS = [
+/** Also rendered into the exported report (src/lib/sipReport.ts). */
+export const SIP_INFO_POINTS = [
   {
     title: "What is a SIP?",
     body: "A Systematic Investment Plan lets you invest a fixed amount in a mutual fund every month. You buy more units when markets are low and fewer when they are high, which averages out your cost over time.",
@@ -24,7 +25,7 @@ export function SipInfo() {
     >
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 md:px-12 py-20 sm:py-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-          {POINTS.map((p) => (
+          {SIP_INFO_POINTS.map((p) => (
             <div
               key={p.title}
               className="relative w-full max-w-sm mx-auto"

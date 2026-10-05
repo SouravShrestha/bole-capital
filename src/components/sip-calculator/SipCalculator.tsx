@@ -6,8 +6,10 @@ import {
   calculate,
   formatRupees,
   formatRupeesCompact,
+  type CalculatorInputs,
   type CalculatorMode,
 } from "@/lib/sipCalculator";
+import { ExportReport } from "./ExportReport";
 import { RangeField, type RangeMark } from "./RangeField";
 import { SegmentedToggle } from "./SegmentedToggle";
 import {
@@ -87,11 +89,12 @@ export function SipCalculator() {
   const amount = isSip ? sipAmount : lumpsumAmount;
   const effectiveStepUp = isSip && stepUpEnabled ? stepUp : 0;
 
-  const result = useMemo(
-    () =>
-      calculate({ mode, amount, annualStepUp: effectiveStepUp, years, annualRate: rate }),
+  const reportInputs = useMemo<CalculatorInputs>(
+    () => ({ mode, amount, annualStepUp: effectiveStepUp, years, annualRate: rate }),
     [mode, amount, effectiveStepUp, years, rate]
   );
+
+  const result = useMemo(() => calculate(reportInputs), [reportInputs]);
 
   const extended = useMemo(
     () =>
@@ -315,7 +318,8 @@ export function SipCalculator() {
             </p>
           </div>
 
-          <div className="flex justify-center mt-auto">
+          <div className="flex flex-col items-center gap-6 mt-auto border-t border-(--card-border) pt-4">
+            <ExportReport inputs={reportInputs} />
             <IconButton
               as="link"
               href={`/contact?message=${encodeURIComponent(
