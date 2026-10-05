@@ -23,12 +23,12 @@ const EMAIL = (
 
 const PHONE = (
   <>
-    <a href="tel:+919971301069" className={linkClass} style={{ color: "var(--fg)" }}>
-      +91 99713 01069
-    </a>
-    ,{" "}
     <a href="tel:+917827301069" className={linkClass} style={{ color: "var(--fg)" }}>
       +91 78273 01069
+    </a>
+    ,{" "}
+    <a href="tel:+919971301069" className={linkClass} style={{ color: "var(--fg)" }}>
+      +91 99713 01069
     </a>
   </>
 );

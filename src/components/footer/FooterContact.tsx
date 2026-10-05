@@ -6,7 +6,7 @@ import { LinkedinIcon } from "@/icons/LinkedinIcon";
 const SOCIAL_LINKS = [
   {
     label: "WhatsApp",
-    href: "https://wa.me/919971301069",
+    href: "https://wa.me/917827301069",
     Icon: WhatsappIcon,
   },
   {
@@ -53,19 +53,19 @@ export function FooterContact() {
 
         <span className="text-sm opacity-70">
           <a
-            href="tel:+919971301069"
-            className="no-underline hover:opacity-100 hover:cursor-pointer transition-opacity"
-            style={{ color: "var(--fg)" }}
-          >
-            +91 9971301069
-          </a>
-          ,{" "}
-          <a
             href="tel:+917827301069"
             className="no-underline hover:opacity-100 hover:cursor-pointer transition-opacity"
             style={{ color: "var(--fg)" }}
           >
             +91 7827301069
+          </a>
+          ,{" "}
+          <a
+            href="tel:+919971301069"
+            className="no-underline hover:opacity-100 hover:cursor-pointer transition-opacity"
+            style={{ color: "var(--fg)" }}
+          >
+            +91 9971301069
           </a>
         </span>
 

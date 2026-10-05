@@ -3,7 +3,7 @@ import { InstagramIcon } from "@/icons/InstagramIcon";
 import { LinkedinIcon } from "@/icons/LinkedinIcon";
 
 const SOCIAL_LINKS = [
-  { label: "WhatsApp", href: "https://wa.me/919971301069", Icon: WhatsappIcon },
+  { label: "WhatsApp", href: "https://wa.me/917827301069", Icon: WhatsappIcon },
   {
     label: "Instagram",
     href: "https://www.instagram.com/bolecapital",
@@ -48,12 +48,12 @@ export function ContactInfo() {
 
       <InfoBlock label="Phone">
         <span>
-          <a href="tel:+919971301069" className={linkClassName}>
-            +91 9971301069
-          </a>
-          ,{" "}
           <a href="tel:+917827301069" className={linkClassName}>
             +91 7827301069
+          </a>
+          ,{" "}
+          <a href="tel:+919971301069" className={linkClassName}>
+            +91 9971301069
           </a>
         </span>
       </InfoBlock>

@@ -1,6 +1,6 @@
 import { WhatsappLogoIcon } from "@/icons/WhatsappLogoIcon";
 
-const WHATSAPP_URL = "https://wa.me/919971301069";
+const WHATSAPP_URL = "https://wa.me/917827301069";
 
 export function WhatsappFab() {
   return (

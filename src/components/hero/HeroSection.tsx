@@ -52,7 +52,7 @@ export function HeroSection() {
           <LoadReveal delay={400}>
             <IconButton
               as="link"
-              href="https://wa.me/919971301069"
+              href="https://wa.me/917827301069"
               target="_blank"
               rel="noopener noreferrer"
               icon={<ChevronRightIcon />}

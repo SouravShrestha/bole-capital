@@ -1,0 +1,37 @@
+[
+  {
+    "category": "Equity Schemes",
+    "rows": [{ "scheme": "Equity Funds", "trail": "0.17% to 1.35%" }]
+  },
+  {
+    "category": "Hybrid Schemes",
+    "rows": [
+      { "scheme": "Arbitrage Funds", "trail": "0.38% to 0.68%" },
+      { "scheme": "Conservative Hybrid Funds", "trail": "0.17% to 1.23%" },
+      { "scheme": "Other Hybrid Funds", "trail": "0.21% to 1.27%" }
+    ]
+  },
+  {
+    "category": "Debt Schemes",
+    "rows": [
+      { "scheme": "Overnight & Liquid Funds", "trail": "0.01% to 0.17%" },
+      {
+        "scheme": "Ultra-Short Duration, Low Duration, Money Market Fund, Short Duration Funds",
+        "trail": "0.04% to 0.68%"
+      },
+      { "scheme": "Credit Risk", "trail": "0.42% to 1.02%" },
+      { "scheme": "Gilt Funds", "trail": "0.08% to 0.85%" },
+      { "scheme": "Floater Funds", "trail": "0.13% to 0.58%" },
+      { "scheme": "Medium, Medium to Long, Long, Dynamic Duration Funds", "trail": "0.10% to 0.93%" },
+      { "scheme": "Corporate Bond, Banking & PSU Funds", "trail": "0.08% to 0.64%" }
+    ]
+  },
+  {
+    "category": "Other Schemes",
+    "rows": [
+      { "scheme": "Index Funds/ETFs", "trail": "0.03% to 0.76%" },
+      { "scheme": "Fund of Funds", "trail": "0.04% to 1.06%" },
+      { "scheme": "Retirement & Children's Fund", "trail": "0.42% to 0.93%" }
+    ]
+  }
+]

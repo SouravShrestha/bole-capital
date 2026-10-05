@@ -10,7 +10,7 @@ export const SITE_LAST_UPDATED = "2026-10-05";
 
 export const CONTACT = {
   email: "hello@bolecapital.in",
-  telephone: ["+91-9971301069", "+91-7827301069"],
+  telephone: ["+91-7827301069", "+91-9971301069"],
   address: {
     streetAddress: "",
     addressLocality: "Dhanbad",

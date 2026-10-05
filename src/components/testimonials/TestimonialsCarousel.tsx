@@ -11,13 +11,7 @@ import {
 import { TestimonialCard } from "./TestimonialCard";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
 import { Reveal } from "@/components/motion/Reveal";
-
-export type Testimonial = {
-  quote: string;
-  name: string;
-  designation: string;
-  rotation?: number;
-};
+import type { Testimonial } from "@/types/testimonial";
 
 type TestimonialsCarouselProps = {
   testimonials: Testimonial[];

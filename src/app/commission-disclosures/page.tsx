@@ -1,4 +1,6 @@
 import Link from "next/link";
+import commissionData from "@/data/commissions.json";
+import type { CommissionCategory } from "@/types/commission";
 import { pageMetadata } from "@/lib/seo";
 import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
 import { Reveal } from "@/components/motion/Reveal";
@@ -12,24 +14,8 @@ export const metadata = pageMetadata({
 
 const linkClass = "underline underline-offset-4 hover:opacity-100 hover:cursor-pointer";
 
-type CommissionRow = { scheme: string; firstYear: string; secondYearOnwards: string };
-
-// Trail commission ranges received from AMCs. Update as revised rates arrive.
-const COMMISSIONS: CommissionRow[] = [
-  { scheme: "Arbitrage Funds", firstYear: "0.05% to 0.60%", secondYearOnwards: "0.05% to 0.60%" },
-  { scheme: "ELSS Funds", firstYear: "0.50% to 1.25%", secondYearOnwards: "0.50% to 1.25%" },
-  { scheme: "Equity Oriented Funds", firstYear: "0.50% to 1.25%", secondYearOnwards: "0.50% to 1.25%" },
-  { scheme: "Aggressive Hybrid Equity Funds", firstYear: "0.50% to 1.25%", secondYearOnwards: "0.50% to 1.25%" },
-  { scheme: "Fixed Maturity Plans", firstYear: "0.05% to 0.50%", secondYearOnwards: "0.05% to 0.50%" },
-  { scheme: "Fund of Funds", firstYear: "0.25% to 1%", secondYearOnwards: "0.25% to 1%" },
-  { scheme: "Gilt Funds", firstYear: "0.25% to 1%", secondYearOnwards: "0.05% to 0.65%" },
-  { scheme: "Hybrid Debt Funds", firstYear: "0.05% to 0.75%", secondYearOnwards: "0.05% to 0.75%" },
-  { scheme: "Income Funds", firstYear: "0.05% to 1%", secondYearOnwards: "0.05% to 1%" },
-  { scheme: "Index Funds", firstYear: "0.01% to 0.75%", secondYearOnwards: "0.01% to 0.75%" },
-  { scheme: "Liquid / Ultra Short-Term Funds", firstYear: "0.05% to 0.50%", secondYearOnwards: "0.05% to 0.50%" },
-  { scheme: "Short-Term Income Funds", firstYear: "0.05% to 0.65%", secondYearOnwards: "0.05% to 0.65%" },
-  { scheme: "Thematic / Sector Funds", firstYear: "0.50% to 1.25%", secondYearOnwards: "0.50% to 1.25%" },
-];
+// Trail commission ranges received from AMCs (exclusive of GST). Update src/data/commissions.json as revised rates arrive.
+const COMMISSIONS = commissionData as CommissionCategory[];
 
 const NOTES: string[] = [
   "Mutual fund investments are subject to market risks. Read all scheme related documents and key information documents carefully before investing.",
@@ -73,49 +59,53 @@ export default function CommissionDisclosuresPage() {
               className="text-lg md:text-xl font-medium pb-4 border-b"
               style={{ borderColor: "var(--card-border)" }}
             >
-              Commission rates
+              Commission from Mutual Funds (Exclusive of GST)
             </h2>
             <p className="mt-6 text-sm md:text-base leading-7 opacity-80">
-              Disclosed under SEBI Circular SEBI/IMD/CIR No.4/168230/09. Hemant
-              Bole (ARN-366194) is an AMFI-registered Mutual Fund Distributor
-              and receives the following trail commission from AMCs:
+              Disclosed under SEBI Circular SEBI/IMD/CIR No. 4/168230/09: Bole Capital (Hemant Bole, ARN-366194) is an AMFI-registered Mutual Fund Distributor. The following are the details of the commission earned by Bole Capital from various AMCs whose products are distributed:
             </p>
 
             <div className="mt-8 overflow-x-auto">
               <table className="w-full text-left text-sm md:text-base border-collapse">
                 <caption className="sr-only">
-                  Trail commission ranges by scheme type
+                  Commission from Mutual Funds, trail commission ranges by
+                  category and fund scheme, exclusive of GST
                 </caption>
                 <thead>
                   <tr className="border-b" style={{ borderColor: "var(--card-border)" }}>
                     <th scope="col" className="py-3 pr-4 font-medium">
-                      Scheme type
-                    </th>
-                    <th scope="col" className="py-3 px-4 font-medium whitespace-nowrap">
-                      Trail 1st year
+                      Fund scheme
                     </th>
                     <th scope="col" className="py-3 pl-4 font-medium whitespace-nowrap">
-                      Trail 2nd year onwards
+                      Trail commission range
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  {COMMISSIONS.map(({ scheme, firstYear, secondYearOnwards }) => (
-                    <tr
-                      key={scheme}
-                      className="border-b"
-                      style={{ borderColor: "var(--card-border)" }}
-                    >
-                      <th scope="row" className="py-3 pr-4 font-normal opacity-80">
-                        {scheme}
+                {COMMISSIONS.map(({ category, rows }) => (
+                  <tbody key={category}>
+                    <tr className="border-b" style={{ borderColor: "var(--card-border)" }}>
+                      <th
+                        scope="rowgroup"
+                        colSpan={2}
+                        className="pt-6 pb-3 font-medium text-xs md:text-xs tracking-wide opacity-60"
+                      >
+                        {category}
                       </th>
-                      <td className="py-3 px-4 opacity-80 whitespace-nowrap">{firstYear}</td>
-                      <td className="py-3 pl-4 opacity-80 whitespace-nowrap">
-                        {secondYearOnwards}
-                      </td>
                     </tr>
-                  ))}
-                </tbody>
+                    {rows.map(({ scheme, trail }) => (
+                      <tr
+                        key={scheme}
+                        className="border-b"
+                        style={{ borderColor: "var(--card-border)" }}
+                      >
+                        <th scope="row" className="py-3 pr-4 font-normal opacity-80 pl-2">
+                          {scheme}
+                        </th>
+                        <td className="py-3 pl-4 opacity-80 whitespace-nowrap text-right pr-2">{trail}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ))}
               </table>
             </div>
           </Reveal>
