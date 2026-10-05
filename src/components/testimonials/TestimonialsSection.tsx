@@ -1,22 +1,48 @@
-import { TestimonialCard } from "./TestimonialCard";
+import { TestimonialsCarousel, type Testimonial } from "./TestimonialsCarousel";
 import { SwooshCircleIcon } from "@/icons/SwooshCircleIcon";
-import { Reveal } from "@/components/motion/Reveal";
 import { RevealText } from "@/components/motion/RevealText";
 
-const testimonials = [
+const testimonials: Testimonial[] = [
   {
     quote:
-      "I had never invested before and didn't know where to start. Bole Capital explained everything in plain language and helped me set up a plan I actually understand.",
+      "As a business owner, I don't have the time to constantly track my investments. Bole Capital gives me the confidence that my portfolio is being looked at with a long-term perspective.",
+    name: "Kumar Sanu",
+    designation: "Business Owner, India Packers & Movers, Delhi",
+    rotation: 2,
+  },
+  {
+    quote:
+      "What I value most is the clarity. Bole Capital takes the time to explain the why behind every investment decision, which makes me much more comfortable with my financial planning.",
+    name: "Shristi Raj",
+    designation: "Field Engineer, Schlumberger",
+    rotation: -2,
+  },
+  {
+    quote:
+      "I appreciate that Bole Capital looks beyond individual investments and focuses on the overall strategy. It has helped me become much more disciplined about investing.",
+    name: "Piyush Rose",
+    designation: "Creative Strategy, Royal Enfield",
+    rotation: 1,
+  },
+  {
+    quote:
+      "Between work and family, I hardly get time to track my investments. Bole Capital takes care of that for me and helps keep my portfolio on track.",
+    name: "Subas Sharma",
+    designation: "US Tax Manager, EY",
     rotation: -1,
   },
   {
     quote:
       "I owned a dozen funds and couldn't tell what each one was doing. The portfolio review showed me where things overlapped and gave me a clear structure to follow.",
+    name: "Sourav Shrestha",
+    designation: "Specialist, Infosys Limited",
     rotation: 3,
   },
   {
     quote:
-      "What I value most is the communication. We get regular reviews, honest answers and no pressure to buy anything we don't need.",
+      "What I value most is the communication. We get regular reviews, honest answers and no pressure to buy anything I don't need.",
+    name: "Rajneesh Kumar",
+    designation: "SAP Consultant, IBM",
     rotation: 0,
   },
 ];
@@ -40,13 +66,7 @@ export function TestimonialsSection() {
         </span>
       </RevealText>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 my-16 sm:my-16 md:my-20">
-        {testimonials.map((t, index) => (
-          <Reveal key={index} variant="scale" delay={index * 140}>
-            <TestimonialCard {...t} />
-          </Reveal>
-        ))}
-      </div>
+      <TestimonialsCarousel testimonials={testimonials} />
     </section>
   );
 }

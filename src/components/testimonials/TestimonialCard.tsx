@@ -2,12 +2,19 @@ import { QuoteIcon } from "@/icons/QuoteIcon";
 
 type TestimonialCardProps = {
   quote: string;
+  name: string;
+  designation: string;
   rotation?: number;
 };
 
-export function TestimonialCard({ quote, rotation = 0 }: TestimonialCardProps) {
+export function TestimonialCard({
+  quote,
+  name,
+  designation,
+  rotation = 0,
+}: TestimonialCardProps) {
   return (
-    <div
+    <figure
       className="relative w-full max-w-sm mx-auto"
       style={{ transform: `rotate(${rotation}deg)` }}
     >
@@ -24,13 +31,21 @@ export function TestimonialCard({ quote, rotation = 0 }: TestimonialCardProps) {
         style={{ borderColor: "var(--card-border)", color: "var(--fg)" }}
       >
         <QuoteIcon className="w-6 h-6 sm:w-7 sm:h-7" color="var(--fg)" />
-        <p
+        <blockquote
           className="text-sm sm:text-base leading-relaxed"
           style={{ fontFamily: "var(--font-poppins)" }}
         >
-          {quote}
-        </p>
+          <p>{quote}</p>
+        </blockquote>
+        {/* mt-auto pins the attribution to the bottom so cards line up */}
+        <figcaption
+          className="mt-auto flex flex-col gap-1"
+          style={{ fontFamily: "var(--font-poppins)" }}
+        >
+          <span className="text-sm sm:text-base font-medium">{name}</span>
+          <span className="text-xs sm:text-sm opacity-60">{designation}</span>
+        </figcaption>
       </div>
-    </div>
+    </figure>
   );
 }

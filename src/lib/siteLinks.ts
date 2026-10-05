@@ -45,6 +45,7 @@ export const COMPANY_LINKS: SiteLink[] = [
   { label: "Contact", href: "/contact" },
   { label: INVEST_ONLINE_LINK.label, href: ASSETPLUS_URL, external: true },
   { label: "Privacy Policy", href: "/privacy-policy" },
+  { label: "Commission Disclosures", href: "/commission-disclosures" },
 ];
 
 export const RESOURCE_LINKS: SiteLink[] = [

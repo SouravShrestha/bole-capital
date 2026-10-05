@@ -15,6 +15,7 @@ const PRIORITY: Record<string, number> = {
   "/glossary": 0.6,
   "/sitemap": 0.3,
   "/privacy-policy": 0.3,
+  "/commission-disclosures": 0.3,
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

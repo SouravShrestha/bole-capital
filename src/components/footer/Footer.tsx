@@ -32,21 +32,24 @@ export function Footer() {
 
       {/* Regulatory disclaimer bar */}
       <div
-        className="px-6 md:px-12 lg:px-20 pt-4 pb-6 text-center text-xs opacity-40"
+        className="px-6 md:px-12 lg:px-20 pt-4 pb-6 text-center text-xs"
         style={{
           fontFamily: "var(--font-poppins), sans-serif",
           color: "var(--fg)",
         }}
       >
-        Mutual fund investments are subject to market risks. Read all scheme
-        related documents carefully before investing.
+        {/* Opacity lives on the text, not the wrapper, so the credit link stays fully opaque */}
+        <p className="opacity-40">
+          Mutual fund investments are subject to market risks. Read all scheme
+          related documents carefully before investing.
+        </p>
         <p className="mt-3">
-          Website designed and developed by{" "}
+          <span className="opacity-40">Website designed and developed by </span>
           <a
             href="https://cbsdev.me/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-purple-500 hover:cursor-pointer"
+            className="text-[#7f5dde] hover:cursor-pointer"
           >
             @CBSDev
           </a>
