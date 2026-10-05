@@ -11,19 +11,19 @@ export default function NotFound() {
     <main className="flex min-h-[70vh] flex-col items-center justify-center px-6 py-32 text-center">
       <h1
         className="text-6xl md:text-7xl"
-        style={{ color: "var(--fg)", fontFamily: "var(--font-uber-medium)" }}
+        style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
       >
         404
       </h1>
       <h2
         className="mt-6 text-lg md:text-xl"
-        style={{ color: "var(--fg)", fontFamily: "var(--font-uber-medium)" }}
+        style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
       >
         Page Not Found
       </h2>
       <p
         className="mt-6 max-w-md text-sm leading-relaxed md:text-base"
-        style={{ color: "var(--fg)", fontFamily: "var(--font-uber-medium)" }}
+        style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
       >
         Sorry, the page you are looking for does not exist.
         <br />

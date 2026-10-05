@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import { Poppins, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Navbar } from "@/components/navbar/Navbar";
@@ -15,18 +14,6 @@ import {
   SITE_URL,
 } from "@/lib/seo";
 import "./globals.css";
-
-const uberMoveBold = localFont({
-  src: "./fonts/ubermovebold.otf",
-  variable: "--font-uber-bold",
-  display: "swap",
-});
-
-const uberMoveMedium = localFont({
-  src: "./fonts/ubermovemdeium.otf",
-  variable: "--font-uber-medium",
-  display: "swap",
-});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -125,7 +112,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${uberMoveBold.variable} ${uberMoveMedium.variable} ${poppins.variable} ${inter.variable}`}
+        className={`${poppins.variable} ${inter.variable}`}
         suppressHydrationWarning
       >
         {/* Without JS the scroll-reveal observer never runs; show everything. */}

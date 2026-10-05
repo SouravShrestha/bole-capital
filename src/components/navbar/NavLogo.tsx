@@ -9,15 +9,7 @@ export function NavLogo() {
       aria-label="Bole Capital - Home"
       style={{ color: "var(--fg)" }}
     >
-      <LogoIcon className="w-7 h-7 shrink-0" />
-      <span
-        className="text-xs leading-tight tracking-wide"
-        style={{ fontFamily: "var(--font-uber-medium), sans-serif" }}
-      >
-        Bole
-        <br />
-        Capital
-      </span>
+      <LogoIcon className="h-7 w-auto shrink-0" />
     </Link>
   );
 }
