@@ -11,7 +11,7 @@ export function PlaceholderPage({
 }: Props) {
   return (
     <main
-      className="flex flex-col items-center justify-center px-8 py-24 text-center bg-(--bg)"
+      className="flex flex-col items-center justify-center px-8 py-24 text-center"
       style={{
         minHeight: "calc(100vh - 68px)",
         color: "var(--fg)",

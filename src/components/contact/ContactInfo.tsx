@@ -17,7 +17,7 @@ const SOCIAL_LINKS = [
 ];
 
 const linkClassName =
-  "text-sm no-underline opacity-90 hover:opacity-100 hover:underline transition-opacity";
+  "text-sm no-underline opacity-90 hover:opacity-100 hover:underline hover:cursor-pointer transition-opacity";
 
 function InfoBlock({
   label,
@@ -47,9 +47,15 @@ export function ContactInfo() {
       </InfoBlock>
 
       <InfoBlock label="Phone">
-        <a href="tel:+919971301069" className={linkClassName}>
-          +91 9971301069
-        </a>
+        <span>
+          <a href="tel:+919971301069" className={linkClassName}>
+            +91 9971301069
+          </a>
+          ,{" "}
+          <a href="tel:+917827301069" className={linkClassName}>
+            +91 7827301069
+          </a>
+        </span>
       </InfoBlock>
 
       <InfoBlock label="Address">
@@ -71,7 +77,7 @@ export function ContactInfo() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`${label} - Bole Capital`}
-              className="flex items-center justify-center transition-opacity opacity-80 hover:opacity-100"
+              className="flex items-center justify-center transition-opacity opacity-80 hover:opacity-100 hover:cursor-pointer"
             >
               <Icon width={22} height={22} />
             </a>

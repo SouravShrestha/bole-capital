@@ -15,6 +15,19 @@ export type SiteLinkSection = {
   links: SiteLink[];
 };
 
+/**
+ * Bole Capital's AssetPlus onboarding/login portal. The ARN in the path is
+ * what attributes signups to Bole Capital, so always reference this constant
+ * rather than retyping the URL.
+ */
+export const ASSETPLUS_URL = "https://www.assetplus.in/mfd/ARN-366194";
+
+export const INVEST_ONLINE_LINK = {
+  label: "AssetPlus login",
+  href: ASSETPLUS_URL,
+  ariaLabel: "Invest online on AssetPlus (opens in a new tab)",
+} as const;
+
 export const SERVICE_LINKS: SiteLink[] = [
   { label: "Mutual Funds", href: "/services#mutual-funds" },
   { label: "Portfolio Review", href: "/services#portfolio-review" },
@@ -25,10 +38,13 @@ export const SERVICE_LINKS: SiteLink[] = [
 ];
 
 export const COMPANY_LINKS: SiteLink[] = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Why Bole Capital", href: "/about#why-bole-capital" },
   { label: "How you invest", href: "/about#how-you-invest" },
   { label: "Contact", href: "/contact" },
+  { label: INVEST_ONLINE_LINK.label, href: ASSETPLUS_URL, external: true },
+  { label: "Privacy Policy", href: "/privacy-policy" },
 ];
 
 export const RESOURCE_LINKS: SiteLink[] = [

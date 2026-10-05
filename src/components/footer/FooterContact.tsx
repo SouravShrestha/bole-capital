@@ -37,7 +37,7 @@ export function FooterContact() {
       >
         <Link
           href="/contact"
-          className="text-sm no-underline opacity-70 hover:opacity-100 transition-opacity"
+          className="text-sm no-underline opacity-70 hover:opacity-100 hover:cursor-pointer transition-opacity"
           style={{ color: "var(--fg)" }}
         >
           Start a conversation
@@ -45,19 +45,29 @@ export function FooterContact() {
 
         <a
           href="mailto:hello@bolecapital.in"
-          className="text-sm no-underline opacity-70 hover:opacity-100 transition-opacity"
+          className="text-sm no-underline opacity-70 hover:opacity-100 hover:cursor-pointer transition-opacity"
           style={{ color: "var(--fg)" }}
         >
           hello@bolecapital.in
         </a>
 
-        <a
-          href="tel:+919971301069"
-          className="text-sm no-underline opacity-70 hover:opacity-100 transition-opacity"
-          style={{ color: "var(--fg)" }}
-        >
-          +91 9971301069
-        </a>
+        <span className="text-sm opacity-70">
+          <a
+            href="tel:+919971301069"
+            className="no-underline hover:opacity-100 hover:cursor-pointer transition-opacity"
+            style={{ color: "var(--fg)" }}
+          >
+            +91 9971301069
+          </a>
+          ,{" "}
+          <a
+            href="tel:+917827301069"
+            className="no-underline hover:opacity-100 hover:cursor-pointer transition-opacity"
+            style={{ color: "var(--fg)" }}
+          >
+            +91 7827301069
+          </a>
+        </span>
 
         <address className="text-sm opacity-70 not-italic leading-6">
           Dhanbad,
@@ -76,7 +86,7 @@ export function FooterContact() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${label} - Bole Capital`}
-            className="flex items-center justify-center transition-opacity opacity-80 hover:opacity-100"
+            className="flex items-center justify-center transition-opacity opacity-80 hover:opacity-100 hover:cursor-pointer"
             style={{ color: "var(--fg)" }}
           >
             <Icon width={22} height={22} />

@@ -6,7 +6,7 @@ import { TestimonialsSection } from "@/components/testimonials/TestimonialsSecti
 
 export default function HomePage() {
   return (
-    <main className="bg-(--bg)">
+    <main>
       <HeroSection />
       <OfferingsSection />
       <LetsMakeThingsHappenSection />

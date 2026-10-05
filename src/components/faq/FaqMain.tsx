@@ -8,6 +8,7 @@ import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
 import { IconButton } from "@/components/ui/IconButton";
 import { SearchBar } from "@/components/ui/SearchBar";
 import { HighlightText } from "@/components/ui/HighlightText";
+import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
 
 interface FaqMainProps {
   categories: FaqCategory[];
@@ -42,19 +43,27 @@ const FaqMain = ({ categories }: FaqMainProps) => {
   }, [categories, searchQuery]);
 
   return (
-    <main className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 bg-(--bg) text-(--fg)">
+    <main className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 text-(--fg)">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <p className="text-sm font-normal tracking-widest opacity-60 md:mb-6 mb-4">
+          <LoadReveal
+            as="p"
+            variant="fade"
+            className="text-sm font-normal tracking-widest opacity-60 md:mb-6 mb-4"
+          >
             Knowledge Base
-          </p>
-          <h1 className="text-4xl md:text-5xl font-medium tracking-wide font-poppins">
+          </LoadReveal>
+          <LoadRevealText as="h1" delay={100} className="text-4xl md:text-5xl font-medium tracking-wide font-poppins">
             Frequently Asked Questions
-          </h1>
-          <p className="mt-6 md:mt-8 text-sm md:text-base opacity-70 max-w-xl mx-auto">
+          </LoadRevealText>
+          <LoadReveal
+            as="p"
+            delay={350}
+            className="mt-6 md:mt-8 text-sm md:text-base opacity-70 max-w-xl mx-auto"
+          >
             Find quick answers about Bole Capital&apos;s services, investment
             approach, and how to get started.
-          </p>
+          </LoadReveal>
         </div>
 
         <div className="mb-16 md:mb-32">
@@ -75,7 +84,7 @@ const FaqMain = ({ categories }: FaqMainProps) => {
                   No question matches that search. <br />Please{" "}
                   <Link
                     href="/contact"
-                    className="underline hover:opacity-80 transition-opacity underline-offset-3"
+                    className="underline hover:opacity-80 hover:cursor-pointer transition-opacity underline-offset-3"
                   >
                     ask us directly
                   </Link>
@@ -107,7 +116,7 @@ const FaqMain = ({ categories }: FaqMainProps) => {
                     >
                       <button
                         onClick={() => toggleItem(key)}
-                        className="w-full py-6 md:py-8 flex items-start justify-between text-left group"
+                        className="w-full py-6 md:py-8 flex items-start justify-between text-left group hover:cursor-pointer"
                       >
                         <h3 className="text-base md:text-lg font-normal pr-4 group-hover:opacity-80 transition-opacity font-poppins hover:cursor-pointer">
                           {highlightText(faq.question, searchQuery)}

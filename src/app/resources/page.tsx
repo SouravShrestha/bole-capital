@@ -16,7 +16,7 @@ export default async function ResourcesPage() {
   const categories = await faqService.getCategories();
 
   return (
-    <main className="bg-(--bg)">
+    <main>
       <ResourcesHero />
       <ResourcesGrid categories={categories} />
       <PopularQuestions categories={categories} />

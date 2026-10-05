@@ -3,20 +3,21 @@ import heroImage from "@/assets/images/hero-image.png";
 import { BuildsUnderline } from "@/icons/BuildsUnderline";
 import { IconButton } from "@/components/ui/IconButton";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
+import { Float } from "@/components/motion/Float";
+import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
 
 export function HeroSection() {
   return (
     <section
-      style={{
-        backgroundColor: "var(--bg)",
-        color: "var(--fg)",
-      }}
+      style={{ color: "var(--fg)" }}
     >
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-24 py-12 sm:py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center xl:mt-10">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-24 py-12 sm:py-16 md:py-24 xl:pt-34 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
         {/* Left column */}
         <div className="flex flex-col gap-8 sm:gap-10 md:gap-14 order-2 md:order-1">
           {/* Heading */}
-          <h1
+          <LoadRevealText
+            as="h1"
+            stagger={80}
             className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl leading-tight font-medium"
             style={{ fontFamily: "var(--font-poppins)" }}
           >
@@ -29,10 +30,12 @@ export function HeroSection() {
               />
             </span>{" "}
             wealth
-          </h1>
+          </LoadRevealText>
 
           {/* Subtitle */}
-          <p
+          <LoadReveal
+            as="p"
+            delay={250}
             className="text-sm sm:text-base md:text-lg leading-relaxed max-w-sm sm:max-w-md"
             style={{
               fontFamily: "var(--font-poppins)",
@@ -43,10 +46,10 @@ export function HeroSection() {
             A disciplined approach to investing, protection and long-term wealth
             creation. Built around your goals, guided by strategy rather than
             products.
-          </p>
+          </LoadReveal>
 
           {/* CTA */}
-          <div>
+          <LoadReveal delay={400}>
             <IconButton
               as="link"
               href="https://wa.me/919971301069"
@@ -56,10 +59,12 @@ export function HeroSection() {
             >
               Start your wealth journey
             </IconButton>
-          </div>
+          </LoadReveal>
 
           {/* AMFI badge */}
-          <div
+          <LoadReveal
+            variant="fade"
+            delay={550}
             className="flex flex-col gap-1.5"
             style={{
               fontFamily: "var(--font-poppins)",
@@ -69,18 +74,24 @@ export function HeroSection() {
           >
             <span>AMFI Registered Mutual Fund Distributor</span>
             <span>ARN: 366194</span>
-          </div>
+          </LoadReveal>
         </div>
 
         {/* Right column - hero image */}
-        <div className="relative w-full flex justify-center md:justify-end mt-4 md:mt-0 order-2">
-          <Image
-            src={heroImage}
-            alt="Wealth management dashboard illustration"
-            className="w-[75%] md:w-[90%] max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-full object-contain"
-            priority
-          />
-        </div>
+        <LoadReveal
+          variant="scale"
+          duration={1100}
+          className="relative w-full flex justify-center md:justify-end mt-4 md:mt-0 order-2"
+        >
+          <Float className="w-full flex justify-center md:justify-end">
+            <Image
+              src={heroImage}
+              alt="Wealth management dashboard illustration"
+              className="w-[75%] md:w-[90%] max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-full object-contain"
+              priority
+            />
+          </Float>
+        </LoadReveal>
       </div>
     </section>
   );

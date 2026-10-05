@@ -22,7 +22,7 @@ type IconButtonAsLink = IconButtonBaseProps & {
 type IconButtonProps = IconButtonAsButton | IconButtonAsLink;
 
 const baseClassName =
-  "inline-flex items-center gap-2 px-6 py-3.5 sm:px-7 sm:py-4 rounded-lg text-sm font-medium transition-all duration-200 hover:opacity-90 active:scale-95";
+  "group inline-flex items-center gap-2 px-6 py-3.5 sm:px-7 sm:py-4 rounded-lg text-sm font-medium transition-all duration-200 hover:opacity-90 hover:cursor-pointer active:scale-95";
 
 const baseStyle: React.CSSProperties = {
   backgroundColor: "var(--fg)",
@@ -35,6 +35,12 @@ export function IconButton(props: IconButtonProps) {
 
   const mergedClassName = `${baseClassName} ${className}`.trim();
   const mergedStyle = { ...baseStyle, ...style };
+  // Icon nudges forward on hover; disabled for reduced-motion users.
+  const iconNode = icon ? (
+    <span className="inline-flex transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0">
+      {icon}
+    </span>
+  ) : null;
 
   if (props.as === "link") {
     const { href, target, rel } = props;
@@ -47,7 +53,7 @@ export function IconButton(props: IconButtonProps) {
         style={mergedStyle}
       >
         {children}
-        {icon}
+        {iconNode}
       </Link>
     );
   }
@@ -66,7 +72,7 @@ export function IconButton(props: IconButtonProps) {
   return (
     <button className={mergedClassName} style={mergedStyle} {...buttonProps}>
       {children}
-      {icon}
+      {iconNode}
     </button>
   );
 }

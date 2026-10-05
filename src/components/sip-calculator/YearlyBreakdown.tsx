@@ -44,7 +44,7 @@ export function YearlyBreakdown({ yearly }: { yearly: YearlyPoint[] }) {
             type="button"
             onClick={() => setExpanded((v) => !v)}
             aria-expanded={expanded}
-            className="mt-4 text-sm font-medium text-[#22a352] hover:underline underline-offset-4"
+            className="mt-4 text-sm font-medium text-[#22a352] hover:underline underline-offset-4 hover:cursor-pointer"
           >
             {expanded ? "Show less" : `Show all ${yearly.length} years`}
           </button>

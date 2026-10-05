@@ -28,7 +28,7 @@ export function ResourceCard({
   return (
     <Link
       href={href}
-      className="group flex flex-col h-full rounded-2xl sm:rounded-3xl border p-5 sm:p-6 transition-all duration-200 shadow-[0_2px_0_0_var(--fg)] hover:translate-y-0.75 hover:shadow-[0_6px_0_0_var(--fg)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#22a352]"
+      className="group flex flex-col h-full rounded-2xl sm:rounded-3xl border p-5 sm:p-6 transition-all duration-200 shadow-[0_2px_0_0_var(--fg)] hover:translate-y-0.75 hover:shadow-[0_6px_0_0_var(--fg)] hover:cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#22a352]"
       style={{
         backgroundColor: "var(--card-back-bg)",
         borderColor: "var(--fg)",

@@ -36,7 +36,7 @@ export function SegmentedToggle<T extends string>({
             aria-checked={active}
             aria-label={opt.ariaLabel}
             onClick={() => onChange(opt.value)}
-            className={`${padding} rounded-full font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#22a352] ${
+            className={`${padding} rounded-full font-medium transition-colors hover:cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#22a352] ${
               active ? "bg-[#22a352] text-[#fafafa]" : "opacity-60 hover:opacity-100"
             }`}
           >

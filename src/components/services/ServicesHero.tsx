@@ -1,4 +1,5 @@
 import { SketchedBracketIcon } from "@/icons/SketchedBracketIcon";
+import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
 
 export function ServicesHero() {
   return (
@@ -7,7 +8,10 @@ export function ServicesHero() {
       className="w-full"
     >
       <div className="mx-auto w-full max-w-4xl px-5 sm:px-8 md:px-12 pt-16 sm:pt-24 md:pt-24 pb-30 sm:pb-24 md:pb-40 text-center">
-        <h1 className="text-3xl sm:text-4xl font-medium leading-snug sm:leading-snug md:leading-snug">
+        <LoadRevealText
+          as="h1"
+          className="text-3xl sm:text-4xl font-medium leading-snug sm:leading-snug md:leading-snug"
+        >
           Thoughtfully diversified portfolios,
           <span className="block mt-1 md:mt-3">
             built{" "}
@@ -20,11 +24,15 @@ export function ServicesHero() {
             </span>
             und your goals
           </span>
-        </h1>
-        <p className="mt-8 md:mt-12 mx-auto max-w-lg text-sm sm:text-base leading-relaxed opacity-90">
+        </LoadRevealText>
+        <LoadReveal
+          as="p"
+          delay={450}
+          className="mt-8 md:mt-12 mx-auto max-w-lg text-sm sm:text-base leading-relaxed opacity-90"
+        >
           Choose funds for a reason, not because they are popular. We match them
           to your time horizon, risk profile and plan.
-        </p>
+        </LoadReveal>
       </div>
     </section>
   );

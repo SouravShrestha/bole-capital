@@ -6,21 +6,28 @@ import {
   RESOURCE_LINKS as RESOURCES,
   SERVICE_LINKS as SERVICES,
 } from "@/lib/siteLinks";
+import { Reveal } from "@/components/motion/Reveal";
 
 export function Footer() {
   return (
     <footer className="w-full">
       {/* Main grid */}
-      <div className="w-full px-6 md:px-12 lg:px-20 py-20 md:py-32 grid grid-cols-2 lg:flex lg:justify-around gap-10 lg:gap-6 bg-(--bg)">
-        <div className="col-span-2 lg:col-span-1">
+      <div className="w-full px-6 md:px-12 lg:px-20 py-20 md:py-32 grid grid-cols-2 lg:flex lg:justify-around gap-10 lg:gap-6">
+        <Reveal className="col-span-2 lg:col-span-1">
           <FooterBrand />
-        </div>
-        <FooterNavColumn heading="Services" links={SERVICES} />
-        <FooterNavColumn heading="Company" links={COMPANY} />
-        <FooterNavColumn heading="Resources" links={RESOURCES} />
-        <div className="col-span-2 lg:col-span-1">
+        </Reveal>
+        <Reveal delay={80}>
+          <FooterNavColumn heading="Services" links={SERVICES} />
+        </Reveal>
+        <Reveal delay={160}>
+          <FooterNavColumn heading="Company" links={COMPANY} />
+        </Reveal>
+        <Reveal delay={240}>
+          <FooterNavColumn heading="Resources" links={RESOURCES} />
+        </Reveal>
+        <Reveal delay={320} className="col-span-2 lg:col-span-1">
           <FooterContact />
-        </div>
+        </Reveal>
       </div>
 
       {/* Regulatory disclaimer bar */}
@@ -33,6 +40,17 @@ export function Footer() {
       >
         Mutual fund investments are subject to market risks. Read all scheme
         related documents carefully before investing.
+        <p className="mt-3">
+          Website designed and developed by{" "}
+          <a
+            href="https://cbsdev.me/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-purple-500 hover:cursor-pointer"
+          >
+            @CBSDev
+          </a>
+        </p>
       </div>
     </footer>
   );

@@ -5,7 +5,7 @@ export function NavLogo() {
   return (
     <Link
       href="/"
-      className="flex items-center gap-2.5 no-underline shrink-0"
+      className="flex items-center gap-2.5 no-underline shrink-0 hover:cursor-pointer"
       aria-label="Bole Capital - Home"
       style={{ color: "var(--fg)" }}
     >

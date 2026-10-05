@@ -5,6 +5,7 @@ import Link from "next/link";
 import type { GlossaryTerm } from "@/types/glossary";
 import { SearchBar } from "@/components/ui/SearchBar";
 import { HighlightText } from "@/components/ui/HighlightText";
+import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -41,21 +42,29 @@ export function GlossaryMain({ terms }: Props) {
 
   return (
     <main
-      className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 bg-(--bg) text-(--fg)"
+      className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 text-(--fg)"
       style={{ fontFamily: "var(--font-poppins)" }}
     >
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
-          <p className="text-sm font-normal tracking-widest opacity-60 md:mb-6 mb-4">
+          <LoadReveal
+            as="p"
+            variant="fade"
+            className="text-sm font-normal tracking-widest opacity-60 md:mb-6 mb-4"
+          >
             Resources
-          </p>
-          <h1 className="text-4xl md:text-5xl font-medium tracking-wide">
+          </LoadReveal>
+          <LoadRevealText as="h1" delay={100} className="text-4xl md:text-5xl font-medium tracking-wide">
             Glossary
-          </h1>
-          <p className="mt-6 md:mt-8 text-sm md:text-base opacity-70 max-w-xl mx-auto">
+          </LoadRevealText>
+          <LoadReveal
+            as="p"
+            delay={350}
+            className="mt-6 md:mt-8 text-sm md:text-base opacity-70 max-w-xl mx-auto"
+          >
             Plain-language explanations of the investing terms you&apos;ll come
             across in fund documents, statements and our conversations.
-          </p>
+          </LoadReveal>
         </div>
 
         <div className="mb-10">
@@ -76,7 +85,7 @@ export function GlossaryMain({ terms }: Props) {
                   {enabled ? (
                     <a
                       href={`#letter-${letter}`}
-                      className="flex w-8 h-8 items-center justify-center rounded-lg text-sm no-underline hover:bg-[rgba(var(--fg-rgb),0.1)] transition-colors"
+                      className="flex w-8 h-8 items-center justify-center rounded-lg text-sm no-underline hover:bg-[rgba(var(--fg-rgb),0.1)] hover:cursor-pointer transition-colors"
                       style={{ color: "var(--fg)" }}
                     >
                       {letter}
@@ -101,7 +110,7 @@ export function GlossaryMain({ terms }: Props) {
             Please{" "}
             <Link
               href="/contact"
-              className="underline hover:opacity-80 transition-opacity underline-offset-3"
+              className="underline hover:opacity-80 hover:cursor-pointer transition-opacity underline-offset-3"
             >
               ask us directly
             </Link>

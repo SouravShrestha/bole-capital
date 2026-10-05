@@ -16,7 +16,7 @@ export function NavLinks() {
             <li key={href}>
               <Link
                 href={href}
-                className={`group relative text-sm no-underline transition-opacity hover:opacity-100 ${
+                className={`group relative text-sm no-underline transition-opacity hover:opacity-100 hover:cursor-pointer ${
                   isActive
                     ? "opacity-100 font-medium"
                     : "opacity-60 font-normal"

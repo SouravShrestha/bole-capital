@@ -14,7 +14,7 @@ export const metadata = pageMetadata({
 
 export default function AboutPage() {
   return (
-    <main className="bg-(--bg)">
+    <main>
       <AboutHero />
       <AboutHighlights />
       <AboutWhyChooseUs />

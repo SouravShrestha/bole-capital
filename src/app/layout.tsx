@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Poppins, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Navbar } from "@/components/navbar/Navbar";
+import { ScrollToTop } from "@/components/navbar/ScrollToTop";
 import { CtaGate } from "@/components/cta/CtaGate";
 import { Footer } from "@/components/footer/Footer";
 import NextTopLoader from "nextjs-toploader";
@@ -117,11 +118,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-theme="dark"
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body
         className={`${uberMoveBold.variable} ${uberMoveMedium.variable} ${poppins.variable} ${inter.variable}`}
         suppressHydrationWarning
       >
+        {/* Without JS the scroll-reveal observer never runs; show everything. */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html:
+              "<style>[data-reveal],[data-reveal-text],[data-rt-word]{opacity:1!important;transform:none!important;filter:none!important}[data-reveal-text] svg{clip-path:none!important}</style>",
+          }}
+        />
+        {/* Fixed page background; see .page-backdrop in globals.css */}
+        <div className="page-backdrop" aria-hidden="true" />
         <JsonLd data={ORGANIZATION_JSON_LD} />
         <ThemeProvider>
           <NextTopLoader
@@ -135,6 +150,7 @@ export default function RootLayout({
             speed={200}
             shadow={false}
           />
+          <ScrollToTop />
           <Navbar />
           {children}
           <CtaGate />

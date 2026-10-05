@@ -14,7 +14,7 @@ export function FooterBrand() {
     <div className="flex flex-col gap-5">
       <Link
         href="/"
-        className="flex items-center gap-2.5 no-underline w-fit"
+        className="flex items-center gap-2.5 no-underline w-fit hover:cursor-pointer"
         aria-label="Bole Capital Home"
         style={{ color: "var(--fg)" }}
       >
@@ -41,7 +41,7 @@ export function FooterBrand() {
         href="https://www.amfiindia.com"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-3 no-underline w-fit"
+        className="flex items-center gap-3 no-underline w-fit hover:cursor-pointer"
         aria-label="AMFI Registered Mutual Fund Distributor"
       >
         <AmfiLogoIcon width={36} height={44} />

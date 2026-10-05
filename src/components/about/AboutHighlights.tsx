@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowIcon } from "@/icons/ArrowIcon";
 import { QuoteIcon } from "@/icons/QuoteIcon";
 import { VerifiedIcon } from "@/icons/VerifiedIcon";
+import { Reveal } from "@/components/motion/Reveal";
 
 const services = [
   { label: "Financial guidance", filled: true, rotate: -3 },
@@ -29,50 +30,72 @@ export function AboutHighlights() {
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-        <div className={`${cardClass} p-6 sm:p-8 flex flex-col gap-8 min-h-64`}>
+        <Reveal
+          className={`${cardClass} p-6 sm:p-8 flex flex-col gap-8 min-h-64`}
+        >
           <div className="flex items-center justify-between">
             <h2 className="text-xl sm:text-2xl font-medium">Services</h2>
             <Link
               href="/services"
               aria-label="View services"
-              className="w-7 h-7 rounded-full bg-(--fg) flex items-center justify-center transition-transform hover:rotate-45"
+              className="w-7 h-7 rounded-full bg-(--fg) flex items-center justify-center transition-transform hover:rotate-45 hover:cursor-pointer"
             >
               <ArrowIcon color="var(--bg)" className="w-3 h-3" />
             </Link>
           </div>
           <div className="flex flex-wrap gap-x-2 gap-y-4 items-center justify-center my-auto">
-            {services.map(({ label, filled, rotate }) => (
-              <span
+            {services.map(({ label, filled, rotate }, index) => (
+              <Reveal
+                as="span"
                 key={label}
-                style={{ transform: `rotate(${rotate}deg)` }}
-                className={`px-4 md:px-3 py-2 rounded-full border text-xs sm:text-sm border-(--fg) ${
-                  filled ? "bg-(--fg) text-(--bg)" : ""
-                }`}
+                variant="scale"
+                delay={250 + index * 70}
+                className="inline-block"
               >
-                {label}
-              </span>
+                <span
+                  style={{ transform: `rotate(${rotate}deg)` }}
+                  className={`inline-block px-4 md:px-3 py-2 rounded-full border text-xs sm:text-sm border-(--fg) ${
+                    filled ? "bg-(--fg) text-(--bg)" : ""
+                  }`}
+                >
+                  {label}
+                </span>
+              </Reveal>
             ))}
           </div>
-        </div>
+        </Reveal>
 
         <div className="flex flex-col gap-8">
-          <div className="rounded-2xl sm:rounded-3xl bg-(--fg) text-(--bg) p-6 sm:p-8 flex flex-col gap-3">
+          <Reveal
+            delay={120}
+            className="rounded-2xl sm:rounded-3xl bg-(--fg) text-(--bg) p-6 sm:p-8 flex flex-col gap-3"
+          >
             <h2 className="text-xl sm:text-2xl font-medium">Pan-India</h2>
             <p className="text-sm">online and in-person services</p>
-          </div>
-          <ul
+          </Reveal>
+          <Reveal
+            as="ul"
+            delay={200}
             className={`${cardClass} p-6 sm:p-8 flex flex-col gap-4 flex-1 justify-center`}
           >
-            {credentials.map((item) => (
-              <li key={item} className="flex items-center gap-3 text-sm">
+            {credentials.map((item, index) => (
+              <Reveal
+                as="li"
+                key={item}
+                variant="left"
+                delay={350 + index * 100}
+                className="flex items-center gap-3 text-sm"
+              >
                 <VerifiedIcon color="var(--fg)" className="w-5 h-5 shrink-0" />
                 {item}
-              </li>
+              </Reveal>
             ))}
-          </ul>
+          </Reveal>
         </div>
 
-        <figure
+        <Reveal
+          as="figure"
+          delay={280}
           className={`${cardClass} p-6 sm:p-8 flex flex-col gap-4 min-h-72`}
         >
           <QuoteIcon color="var(--fg)" className="w-6 h-6" />
@@ -82,7 +105,7 @@ export function AboutHighlights() {
             anything I didn&apos;t need. I finally understand what I own and
             why, and I feel far more confident about my financial future.
           </blockquote>
-        </figure>
+        </Reveal>
       </div>
     </section>
   );

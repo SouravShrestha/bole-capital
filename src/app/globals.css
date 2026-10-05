@@ -10,6 +10,19 @@
   --font-uber-medium: var(--font-uber-medium);
   --font-poppins: var(--font-poppins);
   --font-inter: var(--font-inter);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -10px, 0);
+    }
+  }
 }
 
 /* Theme CSS variables */
@@ -77,12 +90,153 @@
   box-shadow: 0 0 0 4px rgba(34, 163, 82, 0.35);
 }
 
+/* Page background. Chrome on macOS colour-manages solid-colour tiles and
+   rasterised tiles slightly differently, so a background painted into the
+   scrolling content shows horizontal bands as scroll animations re-raster
+   tiles. Instead the colour lives on one fixed, GPU-composited layer
+   (.page-backdrop, rendered in layout.tsx) that never re-rasters. `html` keeps
+   the colour only for overscroll. Don't add bg-(--bg) to page wrappers or
+   sections; leave them transparent so the backdrop shows through. */
+html {
+  background-color: var(--bg);
+}
+.page-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--bg);
+  transition: background-color 0.3s ease;
+  transform: translateZ(0);
+}
 html,
 body {
-  background-color: var(--bg);
   color: var(--fg);
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+}
+
+/* ------------------------------------------------------------------ */
+/* Scroll reveal (see src/components/motion)                           */
+/* ------------------------------------------------------------------ */
+[data-reveal] {
+  transition-property: opacity, transform;
+  transition-duration: var(--reveal-duration, 800ms);
+  transition-timing-function: var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+[data-reveal="up"]:not([data-revealed]) {
+  transform: translate3d(0, 28px, 0);
+}
+[data-reveal="scale"]:not([data-revealed]) {
+  transform: translate3d(0, 16px, 0) scale(0.96);
+}
+[data-reveal="left"]:not([data-revealed]) {
+  transform: translate3d(-32px, 0, 0);
+}
+[data-reveal="right"]:not([data-revealed]) {
+  transform: translate3d(32px, 0, 0);
+}
+[data-reveal="grow-x"] {
+  transform-origin: left center;
+}
+[data-reveal="grow-x"]:not([data-revealed]) {
+  opacity: 1;
+  transform: scaleX(0);
+}
+
+/* Word-by-word text reveal is driven by Motion (components/ui/text-reveal). */
+/* Hand-drawn underlines/highlights inside headings sweep in left to right. */
+[data-reveal-text] svg {
+  clip-path: inset(-20% -5% -20% -5%);
+  transition: clip-path 900ms cubic-bezier(0.65, 0, 0.35, 1) var(--rt-after, 0ms);
+}
+[data-reveal-text]:not([data-revealed]) svg {
+  clip-path: inset(-20% 105% -20% -5%);
+}
+
+/* ------------------------------------------------------------------ */
+/* On-load reveal (LoadReveal / LoadRevealText)                        */
+/* CSS keyframes that start with the first frame, no JS required.      */
+/* Used for above-the-fold content so it never waits for hydration.    */
+/* ------------------------------------------------------------------ */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+  }
+}
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.96);
+  }
+}
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-32px, 0, 0);
+  }
+}
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    transform: translate3d(32px, 0, 0);
+  }
+}
+[data-load-reveal] {
+  animation-duration: var(--reveal-duration, 800ms);
+  animation-timing-function: var(--ease-out-expo);
+  animation-delay: var(--reveal-delay, 0ms);
+  /* `backwards` holds the start state during the delay, then lets go so the
+     element isn't left with a lingering animated transform. */
+  animation-fill-mode: backwards;
+}
+[data-load-reveal="up"] {
+  animation-name: reveal-up;
+}
+[data-load-reveal="fade"] {
+  animation-name: reveal-fade;
+}
+[data-load-reveal="scale"] {
+  animation-name: reveal-scale;
+}
+[data-load-reveal="left"] {
+  animation-name: reveal-left;
+}
+[data-load-reveal="right"] {
+  animation-name: reveal-right;
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-load-reveal] {
+    animation: none !important;
+  }
+  [data-reveal],
+  [data-reveal-text] svg {
+    transition: none !important;
+  }
+  [data-reveal]:not([data-revealed]) {
+    opacity: 1;
+    transform: none;
+  }
+  /* Motion writes inline styles, so force the settled state here. */
+  [data-reveal-text],
+  [data-rt-word] {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  [data-reveal-text]:not([data-revealed]) svg {
+    clip-path: none;
+  }
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { Faq, FaqCategory } from "@/types/faq";
 import { PlusIcon } from "@/icons/PlusIcon";
+import { Reveal } from "@/components/motion/Reveal";
+import { RevealText } from "@/components/motion/RevealText";
 
 // Hand-picked questions most relevant to someone exploring resources.
 const FEATURED_IDS = [
@@ -29,18 +31,22 @@ export function PopularQuestions({ categories }: { categories: FaqCategory[] }) 
     >
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 md:px-12 py-20 sm:py-28 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16 mt-4 md:mt-12">
         <div>
-          <h2
+          <RevealText
             id="popular-questions-heading"
             className="text-2xl sm:text-3xl font-medium"
           >
             Popular questions
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed opacity-70 max-w-xs">
+          </RevealText>
+          <Reveal
+            as="p"
+            delay={150}
+            className="mt-4 text-sm leading-relaxed opacity-70 max-w-xs"
+          >
             A few of the things investors ask us before they start.
-          </p>
+          </Reveal>
           <Link
             href="/faq"
-            className="block w-fit ml-auto lg:ml-0 mt-6 text-sm font-medium underline underline-offset-4 hover:opacity-80"
+            className="block w-fit ml-auto lg:ml-0 mt-6 text-sm font-medium underline underline-offset-4 hover:opacity-80 hover:cursor-pointer"
           >
             See all FAQs
           </Link>
@@ -48,9 +54,11 @@ export function PopularQuestions({ categories }: { categories: FaqCategory[] }) 
 
         {/* Native <details> keeps this section server-rendered with no JS. */}
         <div className="border-t" style={{ borderColor: "var(--card-border)" }}>
-          {featured.map((faq) => (
-            <details
+          {featured.map((faq, index) => (
+            <Reveal
+              as="details"
               key={faq.id}
+              delay={index * 80}
               className="group border-b"
               style={{ borderColor: "var(--card-border)" }}
             >
@@ -63,7 +71,7 @@ export function PopularQuestions({ categories }: { categories: FaqCategory[] }) 
               <p className="pb-6 text-sm md:text-base leading-relaxed opacity-70 max-w-2xl font-inter">
                 {faq.answer}
               </p>
-            </details>
+            </Reveal>
           ))}
         </div>
       </div>

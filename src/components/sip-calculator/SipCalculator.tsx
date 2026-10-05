@@ -243,7 +243,7 @@ export function SipCalculator() {
                     aria-selected={active}
                     aria-controls="extend-panel"
                     onClick={() => setExtendBy(key)}
-                    className={`px-4 py-2 text-sm font-medium -mb-px border-b-2 transition-colors ${
+                    className={`px-4 py-2 text-sm font-medium -mb-px border-b-2 transition-colors hover:cursor-pointer ${
                       active
                         ? "border-[#22a352] text-[#22a352]"
                         : "border-transparent opacity-60 hover:opacity-100"

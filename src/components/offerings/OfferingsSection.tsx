@@ -8,6 +8,8 @@ import goalBasedInvestingImg from "@/assets/images/goal-based-investing.png";
 import pmsSifImg from "@/assets/images/pms-sif.png";
 import insuranceImg from "@/assets/images/insurance.png";
 import npsImg from "@/assets/images/nps.png";
+import { Reveal } from "@/components/motion/Reveal";
+import { RevealText } from "@/components/motion/RevealText";
 
 export function OfferingsSection() {
   const offerings = [
@@ -71,7 +73,7 @@ export function OfferingsSection() {
     <section className="py-8 sm:py-16 px-5 sm:px-8 md:px-12 lg:px-24 mx-auto w-full mt-8 sm">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-12 mb-12 sm:mb-16">
-        <h2
+        <RevealText
           className="text-2xl sm:text-3xl md:text-4xl font-medium whitespace-nowrap"
           style={{ fontFamily: "var(--font-poppins)" }}
         >
@@ -83,20 +85,24 @@ export function OfferingsSection() {
               color="currentColor"
             />
           </span>
-        </h2>
-        <p
+        </RevealText>
+        <Reveal
+          as="p"
+          delay={200}
           className="text-sm sm:text-xs md:text-sm max-w-xl text-left md:text-right md:ml-auto mt-2"
           style={{ fontFamily: "var(--font-poppins)", opacity: 0.8 }}
         >
           From building wealth to protecting it, Bole Capital brings together
           solutions across different stages of your financial journey.
-        </p>
+        </Reveal>
       </div>
 
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16 md:mt-20 lg:mt-24 ">
         {offerings.map((offering, index) => (
-          <OfferingCard key={index} {...offering} />
+          <Reveal key={index} delay={(index % 3) * 110} className="h-full">
+            <OfferingCard {...offering} />
+          </Reveal>
         ))}
       </div>
     </section>

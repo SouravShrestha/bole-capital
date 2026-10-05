@@ -12,6 +12,7 @@ import {
   RETURNS_COLOR,
 } from "@/components/sip-calculator/ResultCharts";
 import { ResourceCard } from "./ResourceCard";
+import { Reveal } from "@/components/motion/Reveal";
 
 // Example shown on the calculator card. Computed at build time, not hardcoded,
 // so it always matches what the calculator itself would show.
@@ -83,27 +84,30 @@ export function ResourcesGrid({ categories }: { categories: FaqCategory[] }) {
   return (
     <section className="w-full">
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-8">
-        <ResourceCard
-          href="/resources/sip-calculator"
-          eyebrow="Tool"
-          title="SIP Calculator"
-          description="See how a monthly SIP or a lumpsum could grow over time, with optional yearly step-up and a year-by-year breakdown."
-          linkText="Open calculator"
-          icon={<CalculatorIcon className="w-6 h-6" />}
-        >
-          <SipPreview />
-        </ResourceCard>
-
-        <ResourceCard
-          href="/faq"
-          eyebrow={`${totalQuestions} answers`}
-          title="FAQs"
-          description="Plain answers about how we work, getting started, managing your investments and understanding risk."
-          linkText="Browse all FAQs"
-          icon={<FaqIcon className="w-6 h-6" />}
-        >
-          <FaqPreview categories={categories} />
-        </ResourceCard>
+        <Reveal className="h-full">
+          <ResourceCard
+            href="/resources/sip-calculator"
+            eyebrow="Tool"
+            title="SIP Calculator"
+            description="See how a monthly SIP or a lumpsum could grow over time, with optional yearly step-up and a year-by-year breakdown."
+            linkText="Open calculator"
+            icon={<CalculatorIcon className="w-6 h-6" />}
+          >
+            <SipPreview />
+          </ResourceCard>
+        </Reveal>
+        <Reveal delay={140} className="h-full">
+          <ResourceCard
+            href="/faq"
+            eyebrow={`${totalQuestions} answers`}
+            title="FAQs"
+            description="Plain answers about how we work, getting started, managing your investments and understanding risk."
+            linkText="Browse all FAQs"
+            icon={<FaqIcon className="w-6 h-6" />}
+          >
+            <FaqPreview categories={categories} />
+          </ResourceCard>
+        </Reveal>
       </div>
     </section>
   );

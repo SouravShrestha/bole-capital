@@ -50,7 +50,7 @@ export function ServicesMenu() {
               <a
                 href={`#${service.id}`}
                 aria-current={isActive ? "true" : undefined}
-                className={`block pb-3 text-sm transition-opacity ${
+                className={`block pb-3 text-sm transition-opacity hover:cursor-pointer ${
                   isActive ? "font-medium" : "opacity-50 hover:opacity-100"
                 }`}
                 style={{

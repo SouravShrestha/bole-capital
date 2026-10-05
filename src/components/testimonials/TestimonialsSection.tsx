@@ -1,5 +1,7 @@
 import { TestimonialCard } from "./TestimonialCard";
 import { SwooshCircleIcon } from "@/icons/SwooshCircleIcon";
+import { Reveal } from "@/components/motion/Reveal";
+import { RevealText } from "@/components/motion/RevealText";
 
 const testimonials = [
   {
@@ -22,7 +24,7 @@ const testimonials = [
 export function TestimonialsSection() {
   return (
     <section className="py-8 sm:py-16 px-5 sm:px-8 md:px-12 lg:px-24 mx-auto w-full mt-4 sm:mt-6">
-      <h2
+      <RevealText
         className="text-2xl sm:text-3xl md:text-4xl font-medium leading-snug"
         style={{ fontFamily: "var(--font-poppins)" }}
       >
@@ -36,11 +38,13 @@ export function TestimonialsSection() {
             preserveAspectRatio="none"
           />
         </span>
-      </h2>
+      </RevealText>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 my-16 sm:my-16 md:my-20">
         {testimonials.map((t, index) => (
-          <TestimonialCard key={index} {...t} />
+          <Reveal key={index} variant="scale" delay={index * 140}>
+            <TestimonialCard {...t} />
+          </Reveal>
         ))}
       </div>
     </section>

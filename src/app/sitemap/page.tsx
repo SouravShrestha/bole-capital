@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { SITEMAP_SECTIONS } from "@/lib/siteLinks";
+import { ExternalLinkIcon } from "@/icons/ExternalLinkIcon";
 
 export const metadata: Metadata = pageMetadata({
   title: "Sitemap",
@@ -12,7 +13,7 @@ export const metadata: Metadata = pageMetadata({
 export default function SitemapPage() {
   return (
     <main
-      className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 bg-(--bg) text-(--fg)"
+      className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 text-(--fg)"
       style={{ fontFamily: "var(--font-poppins)" }}
     >
       <div className="max-w-5xl mx-auto">
@@ -39,15 +40,29 @@ export default function SitemapPage() {
                 {heading}
               </h2>
               <ul className="flex flex-col gap-4 list-none p-0 mt-6">
-                {links.map(({ label, href }) => (
+                {links.map(({ label, href, external }) => (
                   <li key={href}>
-                    <Link
-                      href={href}
-                      className="text-sm md:text-base no-underline opacity-80 hover:opacity-100 hover:underline underline-offset-4 transition-opacity"
-                      style={{ color: "var(--fg)" }}
-                    >
-                      {label}
-                    </Link>
+                    {external ? (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-sm md:text-base no-underline opacity-80 hover:opacity-100 hover:underline hover:cursor-pointer underline-offset-4 transition-opacity"
+                        style={{ color: "var(--fg)" }}
+                      >
+                        {label}
+                        <ExternalLinkIcon width={11} height={11} />
+                        <span className="sr-only"> (opens in a new tab)</span>
+                      </a>
+                    ) : (
+                      <Link
+                        href={href}
+                        className="text-sm md:text-base no-underline opacity-80 hover:opacity-100 hover:underline hover:cursor-pointer underline-offset-4 transition-opacity"
+                        style={{ color: "var(--fg)" }}
+                      >
+                        {label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

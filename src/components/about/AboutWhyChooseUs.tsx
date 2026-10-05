@@ -4,6 +4,8 @@ import planBeforeProductsImg from "@/assets/images/plan-before-products.png";
 import clearCommunicationImg from "@/assets/images/clear-communication.png";
 import ongoingReviewImg from "@/assets/images/ongoing-review.png";
 import simpleOnlineInvestingImg from "@/assets/images/simple-online-investing.png";
+import { Reveal } from "@/components/motion/Reveal";
+import { RevealText } from "@/components/motion/RevealText";
 
 const reasons = [
   {
@@ -40,7 +42,7 @@ export function AboutWhyChooseUs() {
       style={{ fontFamily: "var(--font-poppins)" }}
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-24 py-16 sm:py-32 grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-12 md:gap-20 mt-6 md:mt-8">
-        <h2 className="text-3xl sm:text-4xl font-medium leading-snug">
+        <RevealText className="text-3xl sm:text-4xl font-medium leading-snug">
           Why our clients choose us as
           <span className="relative inline-block mt-2">
             <TextHighlightIcon
@@ -49,12 +51,13 @@ export function AboutWhyChooseUs() {
             />
             <span className="relative z-10 px-2.5 text-dark">partners?</span>
           </span>
-        </h2>
+        </RevealText>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-12 mt-10 sm:mt-0">
-          {reasons.map(({ title, description, image }) => (
-            <div
+          {reasons.map(({ title, description, image }, index) => (
+            <Reveal
               key={title}
+              delay={(index % 2) * 120}
               className="flex flex-col gap-6 items-center sm:items-start"
             >
               <Image
@@ -66,7 +69,7 @@ export function AboutWhyChooseUs() {
               <p className="text-sm leading-relaxed opacity-90 text-center sm:text-left">
                 {description}
               </p>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

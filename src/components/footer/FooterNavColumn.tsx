@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ExternalLinkIcon } from "@/icons/ExternalLinkIcon";
 
 export type FooterLink = {
   label: string;
@@ -39,18 +40,20 @@ export function FooterNavColumn({ heading, links }: Props) {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm no-underline opacity-70 hover:opacity-100 transition-opacity"
+                  className="inline-flex items-center gap-1.5 text-sm no-underline opacity-70 hover:opacity-100 hover:cursor-pointer transition-opacity"
                   style={{
                     color: "var(--fg)",
                     fontFamily: "var(--font-poppins), sans-serif",
                   }}
                 >
                   {label}
+                  <ExternalLinkIcon width={11} height={11} />
+                  <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               ) : (
                 <Link
                   href={href}
-                  className={`text-sm no-underline hover:opacity-100 transition-opacity ${
+                  className={`text-sm no-underline hover:opacity-100 hover:cursor-pointer transition-opacity ${
                     isActive ? "opacity-100 font-medium" : "opacity-70"
                   }`}
                   style={{

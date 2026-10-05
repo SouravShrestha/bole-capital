@@ -56,7 +56,6 @@ export function Navbar() {
     <header
       className="relative top-0 z-50 w-full"
       style={{
-        backgroundColor: "var(--bg)",
         borderBottom: "0px solid color-mix(in srgb, var(--fg) 8%, transparent)",
       }}
     >

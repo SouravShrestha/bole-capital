@@ -11,7 +11,7 @@ export const metadata = pageMetadata({
 
 export default function ServicesPage() {
   return (
-    <div className="bg-(--bg)">
+    <div>
       <ServicesHero />
       <ServicesList />
     </div>
