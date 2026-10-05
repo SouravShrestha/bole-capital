@@ -17,12 +17,16 @@ import {
 
 const RATE_LIMIT = { maxRequests: 1, windowMs: 60_000 };
 
+/** Site-wide "Book My Portfolio Review" CTA. Forwards the request to Telegram. */
 export async function POST(req: NextRequest) {
   try {
     // Cheap checks first so cross-site/junk requests don't consume rate-limit quota.
     assertSameOrigin(req);
 
-    const { allowed, retryAfterMs } = checkRateLimit(`subscribe:${getClientIp(req)}`, RATE_LIMIT);
+    const { allowed, retryAfterMs } = await checkRateLimit(
+      `portfolio-review:${getClientIp(req)}`,
+      RATE_LIMIT
+    );
     if (!allowed) {
       return NextResponse.json(
         { error: "Too many requests. Please try again later." },
@@ -34,21 +38,21 @@ export async function POST(req: NextRequest) {
 
     // Pretend success so bots don't learn they were filtered.
     if (isBot(body)) {
-      console.warn("Subscribe: honeypot triggered, submission dropped");
+      console.warn("Portfolio review: honeypot triggered, submission dropped");
       return NextResponse.json({ success: true });
     }
 
-    const email = validateEmail(requiredString(body, "email", LIMITS.email));
-    const name = optionalString(body, "name", LIMITS.name);
-    const rawPhone = optionalString(body, "phone", LIMITS.phone);
-    const phone = rawPhone ? validatePhone(rawPhone) : undefined;
+    const name = requiredString(body, "name", LIMITS.name);
+    const phone = validatePhone(requiredString(body, "phone", LIMITS.phone));
+    const rawEmail = optionalString(body, "email", LIMITS.email);
+    const email = rawEmail ? validateEmail(rawEmail) : undefined;
 
-    await notificationService.sendSubscribeNotification({ email, name, phone });
+    await notificationService.sendPortfolioReviewNotification({ name, email, phone });
 
     return NextResponse.json({ success: true });
   } catch (err) {
     if (err instanceof FormError) return errorResponse(err);
-    console.error("Subscribe API error:", err);
+    console.error("Portfolio review API error:", err);
     return NextResponse.json({ error: "Failed to send notification." }, { status: 500 });
   }
 }

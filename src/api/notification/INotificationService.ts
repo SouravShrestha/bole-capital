@@ -1,7 +1,8 @@
-export interface SubscribePayload {
-  email: string;
-  name?: string;
-  phone?: string;
+/** Submitted by the site-wide "Book My Portfolio Review" CTA form. */
+export interface PortfolioReviewPayload {
+  name: string;
+  phone: string;
+  email?: string;
 }
 
 export interface ContactPayload {
@@ -12,6 +13,6 @@ export interface ContactPayload {
 }
 
 export interface INotificationService {
-  sendSubscribeNotification(payload: SubscribePayload): Promise<void>;
+  sendPortfolioReviewNotification(payload: PortfolioReviewPayload): Promise<void>;
   sendContactNotification(payload: ContactPayload): Promise<void>;
 }

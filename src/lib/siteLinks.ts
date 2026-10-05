@@ -1,4 +1,6 @@
 import { NAV_LINKS } from "@/components/navbar/navConfig";
+import { COMPLIANCE } from "@/lib/compliance";
+import { SERVICES_SEO, servicePath } from "@/lib/servicesSeo";
 
 /**
  * Single source of truth for site-wide link groups. The footer columns and
@@ -20,7 +22,7 @@ export type SiteLinkSection = {
  * what attributes signups to Bole Capital, so always reference this constant
  * rather than retyping the URL.
  */
-export const ASSETPLUS_URL = "https://www.assetplus.in/mfd/ARN-366194";
+export const ASSETPLUS_URL = `https://www.assetplus.in/mfd/${COMPLIANCE.arn}`;
 
 export const INVEST_ONLINE_LINK = {
   label: "AssetPlus login",
@@ -28,14 +30,11 @@ export const INVEST_ONLINE_LINK = {
   ariaLabel: "Invest online on AssetPlus (opens in a new tab)",
 } as const;
 
-export const SERVICE_LINKS: SiteLink[] = [
-  { label: "Mutual Funds", href: "/services#mutual-funds" },
-  { label: "Portfolio Review", href: "/services#portfolio-review" },
-  { label: "Goal-based Investing", href: "/services#goal-based-investing" },
-  { label: "PMS / SIF", href: "/services#pms-sif" },
-  { label: "Insurance", href: "/services#insurance" },
-  { label: "NPS", href: "/services#nps" },
-];
+/** Each service has its own crawlable alias URL (/services/<slug>). */
+export const SERVICE_LINKS: SiteLink[] = SERVICES_SEO.map(({ name, slug }) => ({
+  label: name,
+  href: servicePath(slug),
+}));
 
 export const COMPANY_LINKS: SiteLink[] = [
   { label: "Home", href: "/" },
@@ -46,6 +45,8 @@ export const COMPANY_LINKS: SiteLink[] = [
   { label: INVEST_ONLINE_LINK.label, href: ASSETPLUS_URL, external: true },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Commission Disclosures", href: "/commission-disclosures" },
+  { label: "Grievance Redressal", href: "/grievance-redressal" },
+  { label: "Terms of Use", href: "/terms-of-use" },
 ];
 
 export const RESOURCE_LINKS: SiteLink[] = [

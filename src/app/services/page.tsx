@@ -1,6 +1,8 @@
 import { ServicesHero } from "@/components/services/ServicesHero";
 import { pageMetadata } from "@/lib/seo";
 import { ServicesList } from "@/components/services/ServicesList";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { servicesListJsonLd } from "@/lib/servicesJsonLd";
 
 export const metadata = pageMetadata({
   title: "Services",
@@ -11,9 +13,10 @@ export const metadata = pageMetadata({
 
 export default function ServicesPage() {
   return (
-    <div>
+    <main id="main-content">
+      <JsonLd data={servicesListJsonLd()} />
       <ServicesHero />
       <ServicesList />
-    </div>
+    </main>
   );
 }

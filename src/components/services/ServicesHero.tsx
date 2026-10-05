@@ -1,7 +1,11 @@
 import { SketchedBracketIcon } from "@/icons/SketchedBracketIcon";
 import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
 
-export function ServicesHero() {
+const DEFAULT_INTRO =
+  "Choose funds for a reason, not because they are popular. We match them to your time horizon, risk profile and plan.";
+
+/** `intro` swaps the paragraph copy only (used by /services/<slug>); the layout is unchanged. */
+export function ServicesHero({ intro = DEFAULT_INTRO }: { intro?: string }) {
   return (
     <section
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
@@ -30,8 +34,7 @@ export function ServicesHero() {
           delay={450}
           className="mt-8 md:mt-12 mx-auto max-w-lg text-sm sm:text-base leading-relaxed opacity-90"
         >
-          Choose funds for a reason, not because they are popular. We match them
-          to your time horizon, risk profile and plan.
+          {intro}
         </LoadReveal>
       </div>
     </section>

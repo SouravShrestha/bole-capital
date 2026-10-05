@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
   },
@@ -124,6 +124,14 @@ export default function RootLayout({
         />
         {/* Fixed page background; see .page-backdrop in globals.css */}
         <div className="page-backdrop" aria-hidden="true" />
+        {/* First focusable element: lets keyboard users jump past the navbar. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:rounded-lg focus:px-4 focus:py-2 focus:text-sm focus:outline-2 focus:outline-offset-2"
+          style={{ backgroundColor: "var(--bg)", color: "var(--fg)", outlineColor: "var(--fg)" }}
+        >
+          Skip to content
+        </a>
         <JsonLd data={ORGANIZATION_JSON_LD} />
         <ThemeProvider>
           <NextTopLoader

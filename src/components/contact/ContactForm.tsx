@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { IconButton } from "@/components/ui/IconButton";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
 import { HoneypotField } from "@/components/ui/HoneypotField";
 import { FORM_LIMITS, HONEYPOT_FIELD } from "@/lib/formLimits";
+import { formatRetryMessage } from "@/lib/formMessages";
 
 const MAX_MESSAGE_LENGTH = FORM_LIMITS.message;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -19,10 +20,15 @@ interface FormState {
 
 type FormErrors = Partial<Record<keyof FormState, string>>;
 
-const FIELDS: { name: keyof FormState; label: string; type: string }[] = [
-  { name: "name", label: "Name", type: "text" },
-  { name: "email", label: "Email (optional)", type: "email" },
-  { name: "phone", label: "Phone", type: "tel" },
+const FIELDS: {
+  name: keyof FormState;
+  label: string;
+  type: string;
+  autoComplete?: string;
+}[] = [
+  { name: "name", label: "Name", type: "text", autoComplete: "name" },
+  { name: "email", label: "Email (optional)", type: "email", autoComplete: "email" },
+  { name: "phone", label: "Phone", type: "tel", autoComplete: "tel" },
   { name: "message", label: "Message", type: "textarea" },
 ];
 
@@ -56,6 +62,8 @@ const inputClassName =
 
 export function ContactForm() {
   const searchParams = useSearchParams();
+  const idPrefix = useId();
+  const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState<FormState>(() => ({
     ...EMPTY_FORM,
     message: searchParams.get("message") ?? "",
@@ -98,7 +106,13 @@ export function ContactForm() {
       if (error) validationErrors[name] = error;
     });
     setErrors(validationErrors);
-    if (Object.keys(validationErrors).length > 0) return;
+    const firstInvalid = FIELDS.find(({ name }) => validationErrors[name]);
+    if (firstInvalid) {
+      formRef.current
+        ?.querySelector<HTMLElement>(`[name="${firstInvalid.name}"]`)
+        ?.focus();
+      return;
+    }
 
     setLoading(true);
     setStatus(null);
@@ -110,10 +124,9 @@ export function ContactForm() {
       });
 
       if (res.status === 429) {
-        const seconds = parseInt(res.headers.get("Retry-After") ?? "60", 10);
         setStatus({
           type: "error",
-          text: `Too many submissions. Please wait ${seconds} second${seconds !== 1 ? "s" : ""} before trying again.`,
+          text: formatRetryMessage(res.headers.get("Retry-After")),
         });
         return;
       }
@@ -133,65 +146,85 @@ export function ContactForm() {
 
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit}
       noValidate
       className="relative flex flex-col gap-5 w-full"
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
     >
       <HoneypotField value={honeypot} onChange={setHoneypot} />
-      {FIELDS.map(({ name, label, type }) => (
-        <label key={name} className="flex flex-col gap-2 text-sm">
-          <span className="flex items-center justify-between gap-2">
-            <span>{label}</span>
-            {errors[name] && (
-              <span className="text-xs text-red-500">{errors[name]}</span>
-            )}
-          </span>
-          {type === "textarea" ? (
-            <>
-              <textarea
+      {FIELDS.map(({ name, label, type, autoComplete }) => {
+        const errorId = `${idPrefix}-${name}-error`;
+        const counterId = `${idPrefix}-${name}-count`;
+        const a11y = {
+          "aria-invalid": errors[name] ? true : undefined,
+          "aria-required": name === "email" ? undefined : true,
+        } as const;
+        return (
+          <label key={name} className="flex flex-col gap-2 text-sm">
+            <span className="flex items-center justify-between gap-2">
+              <span>{label}</span>
+              {errors[name] && (
+                <span id={errorId} className="text-xs text-red-500">
+                  {errors[name]}
+                </span>
+              )}
+            </span>
+            {type === "textarea" ? (
+              <>
+                <textarea
+                  name={name}
+                  rows={5}
+                  maxLength={FORM_LIMITS.message}
+                  value={form[name]}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  disabled={loading}
+                  {...a11y}
+                  aria-describedby={
+                    errors[name] ? `${errorId} ${counterId}` : counterId
+                  }
+                  className={`${inputClassName} resize-none`}
+                  style={{ backgroundColor: "var(--input)", color: "var(--fg)" }}
+                />
+                <span id={counterId} className="text-xs opacity-50 self-end">
+                  {form.message.length}/{MAX_MESSAGE_LENGTH}
+                </span>
+              </>
+            ) : (
+              <input
                 name={name}
-                rows={5}
-                maxLength={FORM_LIMITS.message}
+                type={type}
+                autoComplete={autoComplete}
+                maxLength={FORM_LIMITS[name]}
                 value={form[name]}
                 onChange={handleChange}
                 onBlur={handleBlur}
                 disabled={loading}
-                className={`${inputClassName} resize-none`}
+                {...a11y}
+                aria-describedby={errors[name] ? errorId : undefined}
+                className={inputClassName}
                 style={{ backgroundColor: "var(--input)", color: "var(--fg)" }}
               />
-              <span className="text-xs opacity-50 self-end">
-                {form.message.length}/{MAX_MESSAGE_LENGTH}
-              </span>
-            </>
-          ) : (
-            <input
-              name={name}
-              type={type}
-              maxLength={FORM_LIMITS[name]}
-              value={form[name]}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              disabled={loading}
-              className={inputClassName}
-              style={{ backgroundColor: "var(--input)", color: "var(--fg)" }}
-            />
-          )}
-        </label>
-      ))}
+            )}
+          </label>
+        );
+      })}
 
-      {status && (
-        <p
-          role="status"
-          className={`text-sm rounded-lg px-4 py-3 ${
-            status.type === "success"
-              ? "bg-green-500/10 text-green-500"
-              : "bg-red-500/10 text-red-500"
-          }`}
-        >
-          {status.text}
-        </p>
-      )}
+      {/* Always mounted so screen readers announce status changes. */}
+      <div role="status" aria-live="polite">
+        {status && (
+          <p
+            className={`text-sm rounded-lg px-4 py-3 ${
+              status.type === "success"
+                ? "bg-green-500/10 text-green-500"
+                : "bg-red-500/10 text-red-500"
+            }`}
+          >
+            {status.text}
+          </p>
+        )}
+      </div>
 
       <div>
         <IconButton

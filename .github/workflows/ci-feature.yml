@@ -30,6 +30,12 @@ jobs:
       - name: Restore dependencies
         run: npm ci
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
       - name: Build
         run: npm run build
         env:
@@ -37,13 +43,10 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: Build for Cloudflare Workers (OpenNext)
-        run: npx @opennextjs/cloudflare@latest build
+        run: npx opennextjs-cloudflare build
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
-      - name: Lint
-        run: npm run lint
 
       - name: Deploy to Cloudflare Workers TEST
         uses: cloudflare/wrangler-action@6d58852c35a27e6034745c5d0bc373d739014f7f # v3.13.0

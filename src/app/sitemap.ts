@@ -16,6 +16,8 @@ const PRIORITY: Record<string, number> = {
   "/sitemap": 0.3,
   "/privacy-policy": 0.3,
   "/commission-disclosures": 0.3,
+  "/grievance-redressal": 0.3,
+  "/terms-of-use": 0.3,
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -30,6 +32,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: absoluteUrl(path),
     lastModified: new Date(SITE_LAST_UPDATED),
     changeFrequency: "monthly",
-    priority: PRIORITY[path] ?? 0.5,
+    priority: PRIORITY[path] ?? (path.startsWith("/services/") ? 0.8 : 0.5),
   }));
 }

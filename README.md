@@ -1,40 +1,40 @@
 # Bole Capital
 
-Bole Capital's "coming soon" landing page - a themed hero section where visitors can subscribe to be notified when the full site launches. Subscriptions are forwarded to Telegram in real time.
+Website for Bole Capital, an AMFI-registered mutual fund distributor (ARN-366194) in Dhanbad. Static Next.js site on Cloudflare Workers; form submissions are forwarded to Telegram in real time.
 
 ## Getting Started
 
-### Installation steps
-
 1. Clone this repository: `git clone https://github.com/SouravShrestha/bole-capital.git`
 2. Navigate into the project directory: `cd bole-capital`
-3. Install the dependencies: `npm install`
-4. Copy `.env.local` and set `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` (see [Environment variables](#environment-variables))
+3. Install the dependencies: `npm ci`
+4. Create `.env.local` with `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID` (see [Environment variables](#environment-variables))
 5. Start the development server: `npm run dev`
-6. Open your browser and go to `http://localhost:3000`
+6. Open `http://localhost:3000`
 
 ## How it works
 
-1. **Landing page**: Visitors see a hero section with a dark/light theme toggle (persisted in `localStorage`) and an email subscribe form.
-2. **Subscribe**: Submitting a valid email hits `POST /api/subscribe`, which rate-limits by IP (1 request/60s), validates the email, and sends a Telegram notification to the configured chat(s).
-3. **No data is stored**: Emails are forwarded to Telegram only - there is no database or persistence layer.
+- **Pages**: home, about, services (plus `/services/<slug>` alias pages that share the same design), contact, SIP calculator, FAQ, glossary, sitemap, and policy pages (privacy, commission disclosures, grievance redressal, terms of use). All statically prerendered.
+- **Forms**: the site-wide "Book My Portfolio Review" CTA posts to `POST /api/portfolio-review`; the contact form posts to `POST /api/contact`. Both check the request origin, rate-limit per IP (1 request/60s via the Workers Rate Limiting binding, in-memory fallback locally), validate input, drop honeypot bot submissions, and send a Telegram message.
+- **No data is stored**: submissions are forwarded to Telegram only; there is no database.
+- **Compliance**: ARN, EUIN, ARN validity, disclaimers and regulator links live in `src/lib/compliance.ts`. EUIN and ARN validity are placeholders (`null`) and stay hidden until filled in.
+- **Last updated**: the footer date and `sitemap.xml` `<lastmod>` come from the last git commit date at build time.
+- **Security headers**: CSP, HSTS and related headers are set in `next.config.ts`.
 
 ## Stack
 
-- Next.js 16 (App Router, React 19)
-- Tailwind CSS v4
-- TypeScript
-- Cloudflare Workers (via OpenNext)
-- Telegram Bot API for subscriber notifications
+- Next.js 16 (App Router, React 19), TypeScript, Tailwind CSS v4
+- Cloudflare Workers via OpenNext, Workers Rate Limiting binding
+- Telegram Bot API for notifications
+- Vitest for unit tests
 
 ## Environment variables
 
-Set these as Cloudflare Worker secrets per environment (not as CI/CD secrets, since they're only read at runtime):
+Set these as Cloudflare Worker secrets per environment. They're read at runtime only:
 
 | Variable | Description |
 | --- | --- |
 | `TELEGRAM_BOT_TOKEN` | Bot token from Telegram's BotFather |
-| `TELEGRAM_CHAT_ID` | Chat ID(s) to notify on new subscribers; comma-separated for multiple |
+| `TELEGRAM_CHAT_ID` | Chat ID(s) to notify; comma-separated for multiple |
 
 ```bash
 npx wrangler secret put TELEGRAM_BOT_TOKEN --env test
@@ -46,17 +46,22 @@ npx wrangler secret put TELEGRAM_CHAT_ID --env production
 
 For local development, add them to `.env.local` instead.
 
+The `RATE_LIMITER` binding is declared per environment in `wrangler.toml`; no extra setup is needed.
+
 ## Development Commands
 
-- Run Development Server: `npm run dev`
-- Build for Production: `npm run build`
-- Preview on Cloudflare Workers locally: `npm run preview`
+- Development server: `npm run dev`
+- Production build: `npm run build`
+- Unit tests: `npm test`
+- ESLint: `npm run lint`
+- Preview on the local Workers runtime: `npm run preview`
 - Deploy: `npm run deploy`
-- Run ESLint: `npm run lint`
+
+CI runs lint, tests and both builds before every deploy.
 
 ## Contributing
 
-Contributions are welcome! Please fork the repo and submit a pull request.
+Contributions are welcome. Please fork the repo and submit a pull request.
 
 ## License
 

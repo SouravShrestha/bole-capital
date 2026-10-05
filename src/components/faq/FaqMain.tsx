@@ -43,7 +43,7 @@ const FaqMain = ({ categories }: FaqMainProps) => {
   }, [categories, searchQuery]);
 
   return (
-    <main className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 text-(--fg)">
+    <main id="main-content" className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 text-(--fg)">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <LoadReveal

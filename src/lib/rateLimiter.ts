@@ -1,3 +1,16 @@
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+
+/**
+ * Two layers:
+ * - Production/test Workers: the Workers Rate Limiting binding (RATE_LIMITER
+ *   in wrangler.toml), shared by every isolate in a Cloudflare location.
+ * - Fallback (next dev, unit tests, or if the binding is missing/errors):
+ *   an in-memory sliding window, which is per-isolate and best-effort only.
+ *
+ * The binding's limit and period live in wrangler.toml; keep them in sync with
+ * the `RATE_LIMIT` options the routes pass in (used by the fallback).
+ */
+
 interface RateLimitEntry {
   timestamps: number[];
 }
@@ -22,17 +35,25 @@ function sweep(now: number, windowMs: number) {
   }
 }
 
-interface RateLimitOptions {
+export interface RateLimitOptions {
   maxRequests: number;
   windowMs: number;
 }
 
-interface RateLimitResult {
+export interface RateLimitResult {
   allowed: boolean;
   retryAfterMs: number;
 }
 
-export function checkRateLimit(key: string, { maxRequests, windowMs }: RateLimitOptions): RateLimitResult {
+/** Minimal shape of the Workers Rate Limiting binding. */
+export interface RateLimitBinding {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+}
+
+export function checkMemoryRateLimit(
+  key: string,
+  { maxRequests, windowMs }: RateLimitOptions
+): RateLimitResult {
   const now = Date.now();
   const windowStart = now - windowMs;
   sweep(now, windowMs);
@@ -52,4 +73,32 @@ export function checkRateLimit(key: string, { maxRequests, windowMs }: RateLimit
   entry.timestamps.push(now);
   store.set(key, entry);
   return { allowed: true, retryAfterMs: 0 };
+}
+
+function getBinding(): RateLimitBinding | undefined {
+  try {
+    const { env } = getCloudflareContext();
+    const binding = (env as { RATE_LIMITER?: RateLimitBinding }).RATE_LIMITER;
+    return typeof binding?.limit === "function" ? binding : undefined;
+  } catch {
+    // Not running inside a Workers request (dev server without bindings, tests).
+    return undefined;
+  }
+}
+
+export async function checkRateLimit(
+  key: string,
+  options: RateLimitOptions,
+  binding: RateLimitBinding | undefined = getBinding()
+): Promise<RateLimitResult> {
+  if (binding) {
+    try {
+      const { success } = await binding.limit({ key });
+      // The binding doesn't report time remaining; the full window is a safe upper bound.
+      return success ? { allowed: true, retryAfterMs: 0 } : { allowed: false, retryAfterMs: options.windowMs };
+    } catch (err) {
+      console.error("Rate limit binding failed, using in-memory fallback:", err);
+    }
+  }
+  return checkMemoryRateLimit(key, options);
 }

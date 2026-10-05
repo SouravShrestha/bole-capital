@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function SitemapPage() {
   return (
-    <main
+    <main id="main-content"
       className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 text-(--fg)"
       style={{ fontFamily: "var(--font-poppins)" }}
     >

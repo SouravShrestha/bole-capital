@@ -1,12 +1,21 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useId, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { Reveal } from "@/components/motion/Reveal";
 import { RevealText } from "@/components/motion/RevealText";
 import { HoneypotField } from "@/components/ui/HoneypotField";
 import { FORM_LIMITS, HONEYPOT_FIELD } from "@/lib/formLimits";
+import { formatRetryMessage } from "@/lib/formMessages";
+
+const INPUT_CLASS =
+  "w-full py-3.5 px-4 border-[1.5px] border-gray-300 rounded-lg text-sm text-[#111] bg-transparent font-poppins transition-all outline-none placeholder:text-gray-500 focus:border-[#2d6b4a] focus:ring-[3px] focus:ring-[#2d6b4a]/10";
+
+const SUCCESS_MESSAGE = "Thank you! We\u2019ll be in touch shortly.";
+const ERROR_MESSAGE = "Something went wrong. Please try again.";
 
 export function CtaSection() {
+  const fieldId = useId();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,23 +25,33 @@ export function CtaSection() {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle");
+  const [message, setMessage] = useState("");
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (status === "submitting") return;
     setStatus("submitting");
+    setMessage("");
 
     try {
-      const res = await fetch("/api/subscribe", {
+      const res = await fetch("/api/portfolio-review", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, [HONEYPOT_FIELD]: honeypot }),
       });
 
+      if (res.status === 429) {
+        setStatus("error");
+        setMessage(formatRetryMessage(res.headers.get("Retry-After")));
+        return;
+      }
       if (!res.ok) throw new Error("Request failed");
       setStatus("success");
+      setMessage(SUCCESS_MESSAGE);
       setFormData({ name: "", email: "", phone: "" });
     } catch {
       setStatus("error");
+      setMessage(ERROR_MESSAGE);
     }
   }
 
@@ -68,10 +87,21 @@ export function CtaSection() {
             and how a clear plan could look.
           </p>
 
-          <form onSubmit={handleSubmit} className="relative flex flex-col gap-4">
+          <form
+            onSubmit={handleSubmit}
+            className="relative flex flex-col gap-4"
+            aria-describedby={`${fieldId}-consent`}
+          >
             <HoneypotField value={honeypot} onChange={setHoneypot} />
+            {/* Visually hidden labels keep the placeholder-only design while giving screen readers a name. */}
+            <label htmlFor={`${fieldId}-name`} className="sr-only">
+              Name (required)
+            </label>
             <input
+              id={`${fieldId}-name`}
+              name="name"
               type="text"
+              autoComplete="name"
               placeholder="Name *"
               required
               maxLength={FORM_LIMITS.name}
@@ -79,21 +109,32 @@ export function CtaSection() {
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, name: e.target.value }))
               }
-              className="w-full py-3.5 px-4 border-[1.5px] border-gray-300 rounded-lg text-sm text-[#111] bg-transparent font-poppins transition-all outline-none placeholder:text-gray-400 focus:border-[#2d6b4a] focus:ring-[3px] focus:ring-[#2d6b4a]/10"
+              className={INPUT_CLASS}
             />
+            <label htmlFor={`${fieldId}-email`} className="sr-only">
+              Email (optional)
+            </label>
             <input
+              id={`${fieldId}-email`}
+              name="email"
               type="email"
+              autoComplete="email"
               placeholder="Email"
-              required
               maxLength={FORM_LIMITS.email}
               value={formData.email}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, email: e.target.value }))
               }
-              className="w-full py-3.5 px-4 border-[1.5px] border-gray-300 rounded-lg text-sm text-[#111] bg-transparent font-poppins transition-all outline-none placeholder:text-gray-400 focus:border-[#2d6b4a] focus:ring-[3px] focus:ring-[#2d6b4a]/10"
+              className={INPUT_CLASS}
             />
+            <label htmlFor={`${fieldId}-phone`} className="sr-only">
+              Phone (required)
+            </label>
             <input
+              id={`${fieldId}-phone`}
+              name="phone"
               type="tel"
+              autoComplete="tel"
               placeholder="Phone *"
               required
               maxLength={FORM_LIMITS.phone}
@@ -103,7 +144,7 @@ export function CtaSection() {
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, phone: e.target.value }))
               }
-              className="w-full py-3.5 px-4 border-[1.5px] border-gray-300 rounded-lg text-sm text-[#111] bg-transparent font-poppins transition-all outline-none placeholder:text-gray-400 focus:border-[#2d6b4a] focus:ring-[3px] focus:ring-[#2d6b4a]/10"
+              className={INPUT_CLASS}
             />
 
             <button
@@ -117,27 +158,42 @@ export function CtaSection() {
             </button>
           </form>
 
-          {status === "success" && (
-            <p className="mt-3 text-[0.85rem] text-center text-[#22a352]">
-              Thank you! We&rsquo;ll be in touch shortly.
-            </p>
-          )}
-          {status === "error" && (
-            <p className="mt-3 text-[0.85rem] text-center text-red-600">
-              Something went wrong. Please try again.
-            </p>
-          )}
+          {/* Always mounted so screen readers announce changes to its content. */}
+          <p
+            role="status"
+            aria-live="polite"
+            className={`text-[0.85rem] text-center empty:hidden mt-3 ${
+              status === "success" ? "text-[#1a7f40]" : "text-red-700"
+            }`}
+          >
+            {message}
+          </p>
 
-          <div className="mt-6 flex flex-col items-center gap-0.5 text-[0.72rem] text-[#888] text-center">
-            <span>Your information is kept private & never shared.</span>
+          <div
+            id={`${fieldId}-consent`}
+            className="mt-6 flex flex-col items-center gap-0.5 text-[0.72rem] text-[#666] text-center"
+          >
+            <span>
+              By submitting, you agree to be contacted by Bole Capital about
+              your request.
+            </span>
+            <span>Your information is kept private &amp; never shared.</span>
             <span>
               Read our{" "}
-              <a
+              <Link
                 href="/privacy-policy"
                 className="text-[#111] underline underline-offset-2 transition-colors hover:text-[#2d6b4a] hover:cursor-pointer"
               >
-                Privacy Policy.
-              </a>
+                Privacy Policy
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/terms-of-use"
+                className="text-[#111] underline underline-offset-2 transition-colors hover:text-[#2d6b4a] hover:cursor-pointer"
+              >
+                Terms of Use
+              </Link>
+              .
             </span>
           </div>
         </Reveal>

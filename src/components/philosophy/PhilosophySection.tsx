@@ -16,7 +16,7 @@ const PILLARS = [
   {
     title: "Clarity Over Complexity",
     body: [
-      "Good wealth management should make your financial life simpler, not more complicated.",
+      "A well structured portfolio should make your financial life simpler, not more complicated.",
       "We focus on understanding why you invest before deciding where you invest.",
     ],
   },

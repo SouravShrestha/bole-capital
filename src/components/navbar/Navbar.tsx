@@ -72,9 +72,8 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Desktop: theme toggle + CTA */}
+        {/* Desktop: theme toggle */}
         <div className="hidden md:flex items-center gap-3">
-          {/* <NavCTA /> */}
           <ThemeToggle />
         </div>
 

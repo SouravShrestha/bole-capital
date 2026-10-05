@@ -1,7 +1,7 @@
 import type {
   ContactPayload,
   INotificationService,
-  SubscribePayload,
+  PortfolioReviewPayload,
 } from "./INotificationService";
 import { env } from "@/lib/env";
 
@@ -39,13 +39,16 @@ async function sendToTelegram(text: string): Promise<void> {
 }
 
 const notificationService: INotificationService = {
-  async sendSubscribeNotification(payload: SubscribePayload): Promise<void> {
+  async sendPortfolioReviewNotification(payload: PortfolioReviewPayload): Promise<void> {
     const { email, name, phone } = payload;
 
-    const lines = [`✨ <b>New Subscriber - Bole Capital</b>`, ``];
-    if (name) lines.push(`👤 <b>Name:</b> ${escapeHtml(name)}`);
-    lines.push(`📧 <b>Email:</b> ${escapeHtml(email)}`);
-    if (phone) lines.push(`📱 <b>Phone:</b> ${escapeHtml(phone)}`);
+    const lines = [
+      `📊 <b>New Portfolio Review Request - Bole Capital</b>`,
+      ``,
+      `👤 <b>Name:</b> ${escapeHtml(name)}`,
+    ];
+    if (email) lines.push(`📧 <b>Email:</b> ${escapeHtml(email)}`);
+    lines.push(`📱 <b>Phone:</b> ${escapeHtml(phone)}`);
 
     await sendToTelegram(lines.join("\n"));
   },

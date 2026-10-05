@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     // Cheap checks first so cross-site/junk requests don't consume rate-limit quota.
     assertSameOrigin(req);
 
-    const { allowed, retryAfterMs } = checkRateLimit(`contact:${getClientIp(req)}`, RATE_LIMIT);
+    const { allowed, retryAfterMs } = await checkRateLimit(`contact:${getClientIp(req)}`, RATE_LIMIT);
     if (!allowed) {
       return NextResponse.json(
         { error: "Too many requests. Please try again later." },

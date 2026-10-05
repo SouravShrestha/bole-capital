@@ -2,13 +2,14 @@ import Link from "next/link";
 import commissionData from "@/data/commissions.json";
 import type { CommissionCategory } from "@/types/commission";
 import { pageMetadata } from "@/lib/seo";
+import { COMPLIANCE } from "@/lib/compliance";
 import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata = pageMetadata({
   title: "Commission Disclosures",
   description:
-    "Trail commission ranges Bole Capital (ARN-366194) receives from Asset Management Companies, disclosed under SEBI Circular SEBI/IMD/CIR No.4/168230/09.",
+    `Trail commission ranges Bole Capital (${COMPLIANCE.arn}) receives from Asset Management Companies, disclosed under SEBI Circular SEBI/IMD/CIR No.4/168230/09.`,
   path: "/commission-disclosures",
 });
 
@@ -26,7 +27,7 @@ const NOTES: string[] = [
 
 export default function CommissionDisclosuresPage() {
   return (
-    <main
+    <main id="main-content"
       className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 text-(--fg)"
       style={{ fontFamily: "var(--font-poppins)" }}
     >
@@ -62,7 +63,7 @@ export default function CommissionDisclosuresPage() {
               Commission from Mutual Funds (Exclusive of GST)
             </h2>
             <p className="mt-6 text-sm md:text-base leading-7 opacity-80">
-              Disclosed under SEBI Circular SEBI/IMD/CIR No. 4/168230/09: Bole Capital (Hemant Bole, ARN-366194) is an AMFI-registered Mutual Fund Distributor. The following are the details of the commission earned by Bole Capital from various AMCs whose products are distributed:
+              Disclosed under SEBI Circular SEBI/IMD/CIR No. 4/168230/09: Bole Capital ({COMPLIANCE.legalName}, {COMPLIANCE.arn}) is an AMFI-registered Mutual Fund Distributor. The following are the details of the commission earned by Bole Capital from various AMCs whose products are distributed:
             </p>
 
             <div className="mt-8 overflow-x-auto">

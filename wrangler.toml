@@ -12,8 +12,22 @@ binding = "ASSETS"
 [observability]
 enabled = true
 
+# Form rate limiting (src/lib/rateLimiter.ts): 1 submission per key per 60s,
+# per Cloudflare location. Bindings aren't inherited by [env.*], so each env
+# declares its own. namespace_id must be unique per Cloudflare account.
+
 [env.test]
 name = "bolecapital-test"
 
+[[env.test.ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 1, period = 60 }
+
 [env.production]
 name = "bolecapital-prod"
+
+[[env.production.ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1002"
+simple = { limit = 1, period = 60 }

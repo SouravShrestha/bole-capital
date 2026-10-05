@@ -1,12 +1,15 @@
 import Link from "next/link";
 import { LogoIcon } from "@/icons/LogoIcon";
 import { AmfiLogoIcon } from "@/icons/AmfiLogoIcon";
+import { formatCompliance } from "@/lib/compliance";
 import { SITE_LAST_UPDATED } from "@/lib/seo";
 
+// Fixed time zone so the server-rendered date matches what visitors in India expect.
 const LAST_UPDATED = new Date(SITE_LAST_UPDATED).toLocaleDateString("en-US", {
   month: "short",
   day: "2-digit",
   year: "numeric",
+  timeZone: "Asia/Kolkata",
 });
 
 export function FooterBrand() {
@@ -44,11 +47,12 @@ export function FooterBrand() {
             fontFamily: "var(--font-poppins), sans-serif",
           }}
         >
-          ARN: 366194
-          <br />
-          Legal Name: Hemant Bole
-          <br />
-          Registered Mutual Fund Distributor
+          {formatCompliance().map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
+          <span className="block">Registered Mutual Fund Distributor</span>
         </span>
       </a>
 

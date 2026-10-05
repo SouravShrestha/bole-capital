@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
+import { isServiceAliasPath } from "@/lib/servicesSeo";
 
 /**
  * On a new route, Next.js scrolls to the top of the page segment, which sits
@@ -9,7 +10,8 @@ import { usePathname } from "next/navigation";
  * very top of the document instead.
  *
  * Skipped for back/forward (keep the browser's restored position) and for
- * hash URLs (let the target section handle its own scroll).
+ * hash URLs and /services/<slug> aliases (let the target section handle its
+ * own scroll).
  */
 export function ScrollToTop() {
   const pathname = usePathname();
@@ -36,6 +38,8 @@ export function ScrollToTop() {
       return;
     }
     if (window.location.hash) return;
+    // /services/<slug> scrolls to its own section (see ScrollToSection).
+    if (isServiceAliasPath(pathname)) return;
 
     // "instant" overrides the global `scroll-behavior: smooth` on <html>.
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { pageMetadata, CONTACT } from "@/lib/seo";
+import { COMPLIANCE } from "@/lib/compliance";
 import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
 import { Reveal } from "@/components/motion/Reveal";
 
@@ -38,14 +39,14 @@ const SECTIONS: Section[] = [
     id: "who-is-responsible",
     heading: "Who is responsible for your information",
     body: [
-      "Bole Capital is the brand under which Hemant Bole (ARN-366194), an AMFI-registered Mutual Fund Distributor, operates. Hemant Bole is responsible for information collected through this website.",
+      `Bole Capital is the brand under which ${COMPLIANCE.legalName} (${COMPLIANCE.arn}), an AMFI-registered Mutual Fund Distributor, operates. ${COMPLIANCE.legalName} is responsible for information collected through this website.`,
     ],
   },
   {
     id: "what-we-collect",
     heading: "What we collect",
     body: [
-      "Only what you type into our forms. Through the contact form, that is your name, phone number, an optional email address and your message. Through the subscribe form, that is your email address.",
+      "Only what you type into our forms. Through the contact form, that is your name, phone number, an optional email address and your message. Through the portfolio review form, that is your name, email address and phone number.",
       "We do not ask for PAN, Aadhaar, bank details, folio numbers, portfolio values, medical information or document uploads through this website. Please do not send those through the public forms.",
       "Your IP address is used briefly to prevent spam by limiting how often a form can be submitted. Our hosting provider may also log ordinary technical information such as IP address and browser type for security purposes.",
     ],
@@ -54,7 +55,7 @@ const SECTIONS: Section[] = [
     id: "why-we-use-it",
     heading: "Why we use it",
     body: [
-      "To respond to your enquiry and have the conversation you asked for, or to let you know when we have something to share if you subscribed. Those are the only purposes we use your details for.",
+      "To respond to your enquiry or portfolio review request and have the conversation you asked for. That is the only purpose we use your details for.",
       "We will not add you to a marketing list from a contact enquiry alone.",
     ],
   },
@@ -105,8 +106,15 @@ const SECTIONS: Section[] = [
     heading: "Grievance contact",
     body: [
       <>
-        Grievance officer: Hemant Bole, Bole Capital. Email {EMAIL}, phone{" "}
-        {PHONE}.
+        Grievance officer: {COMPLIANCE.legalName}, Bole Capital. Email {EMAIL},
+        phone {PHONE}.
+      </>,
+      <>
+        If your concern is not resolved, see our{" "}
+        <Link href="/grievance-redressal" className={linkClass} style={{ color: "var(--fg)" }}>
+          grievance redressal process
+        </Link>{" "}
+        for escalation options, including SEBI SCORES and SmartODR.
       </>,
     ],
   },
@@ -114,7 +122,7 @@ const SECTIONS: Section[] = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <main
+    <main id="main-content"
       className="min-h-screen pt-32 pb-32 md:pb-48 px-6 md:px-12 lg:px-24 text-(--fg)"
       style={{ fontFamily: "var(--font-poppins)" }}
     >

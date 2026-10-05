@@ -9,6 +9,7 @@
 import { SIP_INFO_POINTS } from "@/components/sip-calculator/SipInfo";
 import { LOGO_PATHS, LOGO_VIEWBOX } from "@/icons/LogoIcon";
 import { SITE_URL } from "@/lib/seo";
+import { COMPLIANCE, MARKET_RISK_DISCLAIMER } from "@/lib/compliance";
 import {
   calculate,
   formatRupees,
@@ -47,10 +48,8 @@ const COLORS = {
   returnsText: "#1a7f40",
 };
 
-const DISCLAIMER =
-  "Mutual fund investments are subject to market risks. Read all scheme related documents carefully before investing.";
-const DISTRIBUTOR_LINE =
-  "Bole Capital · Hemant Bole, AMFI-registered Mutual Fund Distributor (ARN-366194)";
+const DISCLAIMER = MARKET_RISK_DISCLAIMER;
+const DISTRIBUTOR_LINE = `Bole Capital · ${COMPLIANCE.legalName}, AMFI-registered Mutual Fund Distributor (${COMPLIANCE.arn})`;
 const SITE_LABEL = `www.${SITE_URL.replace(/^https?:\/\/(www\.)?/, "")}`;
 
 /* ------------------------------------------------------------------ */

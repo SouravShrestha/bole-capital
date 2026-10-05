@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 
 export default function SipCalculatorPage() {
   return (
-    <main
+    <main id="main-content"
       className="pb-10 md:pb-16"
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
     >

@@ -5,6 +5,7 @@ import { IconButton } from "@/components/ui/IconButton";
 import { ChevronRightIcon } from "@/icons/ChevronRightIcon";
 import { Float } from "@/components/motion/Float";
 import { LoadReveal, LoadRevealText } from "@/components/motion/LoadReveal";
+import { COMPLIANCE } from "@/lib/compliance";
 
 export function HeroSection() {
   return (
@@ -73,7 +74,7 @@ export function HeroSection() {
             }}
           >
             <span>AMFI Registered Mutual Fund Distributor</span>
-            <span>ARN: 366194</span>
+            <span>ARN: {COMPLIANCE.arnNumber}</span>
           </LoadReveal>
         </div>
 

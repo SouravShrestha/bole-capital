@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-[70vh] flex-col items-center justify-center px-6 py-32 text-center">
+    <main id="main-content" className="flex min-h-[70vh] flex-col items-center justify-center px-6 py-32 text-center">
       <h1
         className="text-6xl md:text-7xl"
         style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}

@@ -7,14 +7,7 @@ export function ResourcesHero() {
       className="w-full"
       style={{ color: "var(--fg)", fontFamily: "var(--font-poppins)" }}
     >
-      <div className="mx-auto w-full max-w-4xl px-5 sm:px-8 md:px-12 pt-16 sm:pt-24 pb-12 sm:pb-16 text-center">
-        <LoadReveal
-          as="p"
-          variant="fade"
-          className="text-xs sm:text-sm tracking-wider opacity-60 mb-6"
-        >
-          Resources
-        </LoadReveal>
+      <div className="mx-auto w-full max-w-4xl px-5 sm:px-8 md:px-12 pt-20 sm:pt-28 pb-12 sm:pb-16 text-center">
         <LoadRevealText
           as="h1"
           delay={100}

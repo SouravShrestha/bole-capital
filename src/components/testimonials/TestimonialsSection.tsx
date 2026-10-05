@@ -3,6 +3,7 @@ import type { Testimonial } from "@/types/testimonial";
 import { TestimonialsCarousel } from "./TestimonialsCarousel";
 import { SwooshCircleIcon } from "@/icons/SwooshCircleIcon";
 import { RevealText } from "@/components/motion/RevealText";
+import { TESTIMONIAL_DISCLAIMER } from "@/lib/compliance";
 
 const testimonials = testimonialData as Testimonial[];
 
@@ -26,6 +27,13 @@ export function TestimonialsSection() {
       </RevealText>
 
       <TestimonialsCarousel testimonials={testimonials} />
+
+      <p
+        className="mt-6 text-xs text-center opacity-70"
+        style={{ fontFamily: "var(--font-poppins)", color: "var(--fg)" }}
+      >
+        {TESTIMONIAL_DISCLAIMER}
+      </p>
     </section>
   );
 }
